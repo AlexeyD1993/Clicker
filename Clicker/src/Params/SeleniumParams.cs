@@ -8,6 +8,7 @@ namespace Clicker.src.Params
 {
     class SeleniumParams
     {
+        private string paramName;
         private BrowserEnums.Browsers browser;
         private string finderUrl;
         private string proxyIp;
@@ -21,5 +22,6 @@ namespace Clicker.src.Params
         public string ProxyPort { get => proxyPort; set => proxyPort = value; }
         public string FindUrl { get => findUrl; set => findUrl = value; }
         public string Request { get => request; set => request = value; }
+        public string ParamName { get => paramName; set => paramName = value; }
     }
 }
