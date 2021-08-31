@@ -1,4 +1,5 @@
 ﻿using Clicker.src.Params;
+using Clicker.src.Selenium;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,11 +27,11 @@ namespace Clicker
 
         private void UpdateDataGridParam()
         {
-            dataGridView1.Rows.Clear();
+            dataGridViewWorks.Rows.Clear();
 
             foreach (SeleniumParams selenParam in seleniumParams)
             {
-                dataGridView1.Rows.Add(selenParam.ParamName);
+                dataGridViewWorks.Rows.Add(selenParam.ParamName);
             }
         }
 
@@ -49,7 +50,7 @@ namespace Clicker
 
         private void buttonDeleteWork_Click(object sender, EventArgs e)
         {
-            String selectedCellValue = dataGridView1.SelectedCells[0].Value.ToString();
+            String selectedCellValue = dataGridViewWorks.SelectedCells[0].Value.ToString();
 
             foreach (SeleniumParams selenParam in seleniumParams)
             {
@@ -61,6 +62,99 @@ namespace Clicker
             }
 
             UpdateDataGridParam();
+        }
+
+        private void dataGridViewWorks_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //save curr state
+            for (int i = 0; i < seleniumParams.Count; i++)
+            {
+                if (seleniumParams[i].ParamName == currParam.ParamName)
+                    seleniumParams[i] = currParam;
+            }
+
+            //load selected item state
+            string selectedParamName = dataGridViewWorks.SelectedCells[0].Value.ToString();
+            for (int i = 0; i < seleniumParams.Count; i++)
+            {
+                if (seleniumParams[i].ParamName == selectedParamName)
+                    currParam = seleniumParams[i];
+            }
+
+            //view state in page
+            textBoxRequest.Text = currParam.Request;
+            textBoxDomain.Text = currParam.FindUrl;
+
+            if (currParam.Browser == BrowserEnums.Browsers.firefox)
+                radioButton4.Checked = true;
+            if (currParam.Browser == BrowserEnums.Browsers.chrome)
+                radioButton5.Checked = true;
+            if (currParam.Browser == BrowserEnums.Browsers.yandex)
+                radioButton6.Checked = true;
+        }
+
+        private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (SeleniumParams param in seleniumParams)
+            {
+                SeleniumWorker seleniumWorker = new SeleniumWorker(param);
+                seleniumWorker.RequestFindResult();
+
+            }
+        }
+
+        private void запуститьЗаданияПараллельноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (SeleniumParams param in seleniumParams)
+            {
+                
+            }
+        }
+
+        private void textBoxRequest_TextChanged(object sender, EventArgs e)
+        {
+            currParam.Request = textBoxRequest.Text;
+        }
+
+        private void textBoxDomain_TextChanged(object sender, EventArgs e)
+        {
+            currParam.FindUrl = textBoxDomain.Text;
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked)
+                currParam.Browser = BrowserEnums.Browsers.firefox;
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton5.Checked)
+                currParam.Browser = BrowserEnums.Browsers.chrome;
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton6.Checked)
+                currParam.Browser = BrowserEnums.Browsers.yandex;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+                currParam.FinderUrl = "google.ru";
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+                currParam.FinderUrl = "yandex.ru";
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton3.Checked)
+                currParam.FinderUrl = "duckduckgo.ru";
         }
     }
 }

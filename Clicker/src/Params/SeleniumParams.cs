@@ -9,12 +9,33 @@ namespace Clicker.src.Params
     class SeleniumParams
     {
         private string paramName;
-        private BrowserEnums.Browsers browser;
-        private string finderUrl;
-        private string proxyIp;
-        private string proxyPort;
+        
         private string findUrl;
         private string request;
+
+        private BrowserEnums.Browsers browser;
+
+        private string finderUrl;
+
+        private List<string> explicitDomainList;
+
+        private bool gotoPageAndWait;
+        private bool gotoPageAndRun;
+        private long timeWork;
+
+        private string proxyIp;
+        private string proxyPort;
+        private string proxyLogin;
+        private string proxyPassword;
+
+        private string userAgent;
+
+        private bool useJS;
+        private bool useCookie;
+
+        private bool useTextLog;
+        private bool useImageLog;
+        private bool useVideoLog;
 
         public BrowserEnums.Browsers Browser { get => browser; set => browser = value; }
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }
@@ -23,5 +44,17 @@ namespace Clicker.src.Params
         public string FindUrl { get => findUrl; set => findUrl = value; }
         public string Request { get => request; set => request = value; }
         public string ParamName { get => paramName; set => paramName = value; }
+        public string ProxyLogin { get => proxyLogin; set => proxyLogin = value; }
+        public string ProxyPassword { get => proxyPassword; set => proxyPassword = value; }
+        public List<string> ExplicitDomain { get => explicitDomainList; set => explicitDomainList = value; }
+        public bool GotoPageAndWait { get => gotoPageAndWait; set => gotoPageAndWait = value; }
+        public bool GotoPageAndRun { get => gotoPageAndRun; set => gotoPageAndRun = value; }
+        public long TimeWork { get => timeWork; set => timeWork = value; }
+        public bool UseJS { get => useJS; set => useJS = value; }
+        public bool UseCookie { get => useCookie; set => useCookie = value; }
+        public string UserAgent { get => userAgent; set => userAgent = value; }
+        public bool UseTextLog { get => useTextLog; set => useTextLog = value; }
+        public bool UseImageLog { get => useImageLog; set => useImageLog = value; }
+        public bool UseVideoLog { get => useVideoLog; set => useVideoLog = value; }
     }
 }

@@ -12,8 +12,7 @@ namespace Clicker.src.Params
         {
             firefox, 
             chrome, 
-            edge,
-            ie
+            yandex
         }
     }
 }
