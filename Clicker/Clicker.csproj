@@ -67,6 +67,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="src\Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -86,9 +87,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Drivers\x32\Chrome\chromedriver.exe" />
-    <Content Include="Drivers\x32\Firefox\geckodriver.exe" />
-    <Content Include="Drivers\x64\Firefox\geckodriver.exe" />
+    <Content Include="Drivers\x32\Chrome\chromedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Drivers\x32\Firefox\geckodriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Drivers\x32\Yandex\yandexdriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Drivers\x64\Firefox\geckodriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Drivers\x32\Edge\" />

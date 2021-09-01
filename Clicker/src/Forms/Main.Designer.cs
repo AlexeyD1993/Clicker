@@ -37,66 +37,66 @@ namespace Clicker
             this.dataGridViewWorks = new System.Windows.Forms.DataGridView();
             this.WorkName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxRequest = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxDomain = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxRequest = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
             this.dataGridViewExcplicitDomain = new System.Windows.Forms.DataGridView();
             this.domain = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.maskedTextBox4 = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxCookie = new System.Windows.Forms.CheckBox();
             this.checkBoxJS = new System.Windows.Forms.CheckBox();
-            this.checkBoxTextLog = new System.Windows.Forms.CheckBox();
-            this.checkBoxImageLog = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxVideo = new System.Windows.Forms.CheckBox();
+            this.checkBoxImageLog = new System.Windows.Forms.CheckBox();
+            this.checkBoxTextLog = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.запуститьЗаданиеПоочередноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.запуститьЗаданияПараллельноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxDomain = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorks)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExcplicitDomain)).BeginInit();
             this.tableLayoutPanel12.SuspendLayout();
@@ -240,76 +240,6 @@ namespace Clicker
             this.tableLayoutPanel4.Size = new System.Drawing.Size(703, 516);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.textBoxRequest, 1, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(697, 25);
-            this.tableLayoutPanel5.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(239, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Строка для поиска:";
-            // 
-            // textBoxRequest
-            // 
-            this.textBoxRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxRequest.Location = new System.Drawing.Point(351, 3);
-            this.textBoxRequest.Name = "textBoxRequest";
-            this.textBoxRequest.Size = new System.Drawing.Size(343, 20);
-            this.textBoxRequest.TabIndex = 1;
-            this.textBoxRequest.TextChanged += new System.EventHandler(this.textBoxRequest_TextChanged);
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Controls.Add(this.textBoxDomain, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 34);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(697, 25);
-            this.tableLayoutPanel6.TabIndex = 1;
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel11, 1, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 65);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(697, 83);
-            this.tableLayoutPanel7.TabIndex = 2;
-            // 
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -326,45 +256,6 @@ namespace Clicker
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.Size = new System.Drawing.Size(697, 83);
             this.tableLayoutPanel8.TabIndex = 3;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(3, 55);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(97, 17);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "duckduckgo.ru";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(3, 29);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "yandex.ru";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(3, 4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(69, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "google.ru";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // tableLayoutPanel10
             // 
@@ -385,6 +276,45 @@ namespace Clicker
             this.tableLayoutPanel10.Size = new System.Drawing.Size(343, 77);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
+            // radioButton1
+            // 
+            this.radioButton1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(3, 4);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(69, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "google.ru";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(3, 29);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(71, 17);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "yandex.ru";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(3, 55);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(97, 17);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "duckduckgo.ru";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -395,24 +325,22 @@ namespace Clicker
             this.label2.TabIndex = 0;
             this.label2.Text = "Поисковик:";
             // 
-            // label3
+            // tableLayoutPanel7
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(220, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Искомый сайт (домен):";
-            // 
-            // textBoxDomain
-            // 
-            this.textBoxDomain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDomain.Location = new System.Drawing.Point(351, 3);
-            this.textBoxDomain.Name = "textBoxDomain";
-            this.textBoxDomain.Size = new System.Drawing.Size(343, 20);
-            this.textBoxDomain.TabIndex = 2;
-            this.textBoxDomain.TextChanged += new System.EventHandler(this.textBoxDomain_TextChanged);
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel11, 1, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 65);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(697, 83);
+            this.tableLayoutPanel7.TabIndex = 2;
             // 
             // label4
             // 
@@ -482,6 +410,69 @@ namespace Clicker
             this.radioButton6.UseVisualStyleBackColor = true;
             this.radioButton6.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxRequest, 1, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(697, 25);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(239, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Строка для поиска:";
+            // 
+            // textBoxRequest
+            // 
+            this.textBoxRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxRequest.Location = new System.Drawing.Point(351, 3);
+            this.textBoxRequest.Name = "textBoxRequest";
+            this.textBoxRequest.Size = new System.Drawing.Size(343, 20);
+            this.textBoxRequest.TabIndex = 1;
+            this.textBoxRequest.TextChanged += new System.EventHandler(this.textBoxRequest_TextChanged);
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Controls.Add(this.textBoxDomain, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 34);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(697, 25);
+            this.tableLayoutPanel6.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(220, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Искомый сайт (домен):";
+            // 
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -539,7 +530,7 @@ namespace Clicker
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel12.Controls.Add(this.radioButton8, 0, 0);
-            this.tableLayoutPanel12.Controls.Add(this.textBox1, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.maskedTextBox1, 1, 0);
             this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 357);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
@@ -559,13 +550,37 @@ namespace Clicker
             this.radioButton8.Text = "Зайти на страницу и оставаться на ней без действий или закрыть:";
             this.radioButton8.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // maskedTextBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(490, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(204, 20);
-            this.textBox1.TabIndex = 1;
+            this.maskedTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox1.Location = new System.Drawing.Point(490, 3);
+            this.maskedTextBox1.Mask = "00000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(204, 20);
+            this.maskedTextBox1.TabIndex = 1;
+            this.maskedTextBox1.Text = "00000";
+            this.maskedTextBox1.ValidatingType = typeof(int);
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel13.ColumnCount = 3;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+            this.tableLayoutPanel13.Controls.Add(this.radioButton9, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.label5, 1, 0);
+            this.tableLayoutPanel13.Controls.Add(this.maskedTextBox4, 2, 0);
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(3, 388);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 1;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(697, 25);
+            this.tableLayoutPanel13.TabIndex = 7;
             // 
             // radioButton9
             // 
@@ -579,25 +594,6 @@ namespace Clicker
             this.radioButton9.Text = "Зайти на страницу и начать действия:";
             this.radioButton9.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel13
-            // 
-            this.tableLayoutPanel13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel13.ColumnCount = 3;
-            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel13.Controls.Add(this.radioButton9, 0, 0);
-            this.tableLayoutPanel13.Controls.Add(this.label5, 1, 0);
-            this.tableLayoutPanel13.Controls.Add(this.textBox2, 2, 0);
-            this.tableLayoutPanel13.Location = new System.Drawing.Point(3, 388);
-            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
-            this.tableLayoutPanel13.RowCount = 1;
-            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(697, 25);
-            this.tableLayoutPanel13.TabIndex = 7;
-            // 
             // label5
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -608,13 +604,18 @@ namespace Clicker
             this.label5.TabIndex = 7;
             this.label5.Text = "Количество секунд на сайте:";
             // 
-            // textBox2
+            // maskedTextBox4
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(599, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(95, 20);
-            this.textBox2.TabIndex = 8;
+            this.maskedTextBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox4.Location = new System.Drawing.Point(599, 3);
+            this.maskedTextBox4.Mask = "00000";
+            this.maskedTextBox4.Name = "maskedTextBox4";
+            this.maskedTextBox4.Size = new System.Drawing.Size(95, 20);
+            this.maskedTextBox4.TabIndex = 8;
+            this.maskedTextBox4.Text = "00000";
+            this.maskedTextBox4.ValidatingType = typeof(int);
             // 
             // tableLayoutPanel14
             // 
@@ -622,22 +623,22 @@ namespace Clicker
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel14.ColumnCount = 8;
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel14.Controls.Add(this.textBox5, 5, 0);
-            this.tableLayoutPanel14.Controls.Add(this.textBox4, 3, 0);
             this.tableLayoutPanel14.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel14.Controls.Add(this.textBox3, 1, 0);
             this.tableLayoutPanel14.Controls.Add(this.label7, 2, 0);
             this.tableLayoutPanel14.Controls.Add(this.label8, 4, 0);
             this.tableLayoutPanel14.Controls.Add(this.textBox6, 7, 0);
             this.tableLayoutPanel14.Controls.Add(this.label9, 6, 0);
+            this.tableLayoutPanel14.Controls.Add(this.maskedTextBox2, 1, 0);
+            this.tableLayoutPanel14.Controls.Add(this.maskedTextBox3, 3, 0);
             this.tableLayoutPanel14.Location = new System.Drawing.Point(3, 419);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
@@ -645,85 +646,91 @@ namespace Clicker
             this.tableLayoutPanel14.Size = new System.Drawing.Size(697, 25);
             this.tableLayoutPanel14.TabIndex = 8;
             // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 25);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Proxy ip:";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(53, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(118, 20);
-            this.textBox3.TabIndex = 1;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(185, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 25);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Proxy port:";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(227, 3);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(118, 20);
-            this.textBox4.TabIndex = 3;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(359, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 25);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "User name:";
-            // 
             // textBox5
             // 
             this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(401, 3);
+            this.textBox5.Location = new System.Drawing.Point(431, 3);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(118, 20);
+            this.textBox5.Size = new System.Drawing.Size(88, 20);
             this.textBox5.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(30, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Proxy ip:";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(194, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Proxy port:";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(364, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(61, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "User name:";
             // 
             // textBox6
             // 
             this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(575, 3);
+            this.textBox6.Location = new System.Drawing.Point(605, 3);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(119, 20);
+            this.textBox6.PasswordChar = '●';
+            this.textBox6.Size = new System.Drawing.Size(89, 20);
             this.textBox6.TabIndex = 6;
             // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(525, 0);
+            this.label9.Location = new System.Drawing.Point(543, 6);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 25);
+            this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 7;
             this.label9.Text = "Password:";
+            // 
+            // maskedTextBox2
+            // 
+            this.maskedTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox2.Location = new System.Drawing.Point(83, 3);
+            this.maskedTextBox2.Mask = "###.###.###.###";
+            this.maskedTextBox2.Name = "maskedTextBox2";
+            this.maskedTextBox2.Size = new System.Drawing.Size(88, 20);
+            this.maskedTextBox2.TabIndex = 8;
+            this.maskedTextBox2.Text = "127000000001";
+            this.maskedTextBox2.ValidatingType = typeof(System.Net.IPAddress);
+            // 
+            // maskedTextBox3
+            // 
+            this.maskedTextBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox3.Location = new System.Drawing.Point(257, 3);
+            this.maskedTextBox3.Mask = "99999";
+            this.maskedTextBox3.Name = "maskedTextBox3";
+            this.maskedTextBox3.Size = new System.Drawing.Size(88, 20);
+            this.maskedTextBox3.TabIndex = 9;
+            this.maskedTextBox3.Text = "08080";
             // 
             // tableLayoutPanel15
             // 
@@ -741,25 +748,6 @@ namespace Clicker
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel15.Size = new System.Drawing.Size(697, 25);
             this.tableLayoutPanel15.TabIndex = 9;
-            // 
-            // tableLayoutPanel16
-            // 
-            this.tableLayoutPanel16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel16.ColumnCount = 3;
-            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel16.Controls.Add(this.checkBoxVideo, 2, 0);
-            this.tableLayoutPanel16.Controls.Add(this.checkBoxImageLog, 1, 0);
-            this.tableLayoutPanel16.Controls.Add(this.checkBoxTextLog, 0, 0);
-            this.tableLayoutPanel16.Location = new System.Drawing.Point(3, 481);
-            this.tableLayoutPanel16.Name = "tableLayoutPanel16";
-            this.tableLayoutPanel16.RowCount = 1;
-            this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel16.Size = new System.Drawing.Size(697, 32);
-            this.tableLayoutPanel16.TabIndex = 10;
             // 
             // checkBoxCookie
             // 
@@ -787,16 +775,35 @@ namespace Clicker
             this.checkBoxJS.Text = "Использовать JavaScript";
             this.checkBoxJS.UseVisualStyleBackColor = true;
             // 
-            // checkBoxTextLog
+            // tableLayoutPanel16
             // 
-            this.checkBoxTextLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxTextLog.AutoSize = true;
-            this.checkBoxTextLog.Location = new System.Drawing.Point(3, 7);
-            this.checkBoxTextLog.Name = "checkBoxTextLog";
-            this.checkBoxTextLog.Size = new System.Drawing.Size(226, 17);
-            this.checkBoxTextLog.TabIndex = 0;
-            this.checkBoxTextLog.Text = "Сохранять в файл Log";
-            this.checkBoxTextLog.UseVisualStyleBackColor = true;
+            this.tableLayoutPanel16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel16.ColumnCount = 3;
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel16.Controls.Add(this.checkBoxVideo, 2, 0);
+            this.tableLayoutPanel16.Controls.Add(this.checkBoxImageLog, 1, 0);
+            this.tableLayoutPanel16.Controls.Add(this.checkBoxTextLog, 0, 0);
+            this.tableLayoutPanel16.Location = new System.Drawing.Point(3, 481);
+            this.tableLayoutPanel16.Name = "tableLayoutPanel16";
+            this.tableLayoutPanel16.RowCount = 1;
+            this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(697, 32);
+            this.tableLayoutPanel16.TabIndex = 10;
+            // 
+            // checkBoxVideo
+            // 
+            this.checkBoxVideo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxVideo.AutoSize = true;
+            this.checkBoxVideo.Location = new System.Drawing.Point(467, 7);
+            this.checkBoxVideo.Name = "checkBoxVideo";
+            this.checkBoxVideo.Size = new System.Drawing.Size(227, 17);
+            this.checkBoxVideo.TabIndex = 2;
+            this.checkBoxVideo.Text = "Сохранять видео";
+            this.checkBoxVideo.UseVisualStyleBackColor = true;
             // 
             // checkBoxImageLog
             // 
@@ -809,16 +816,16 @@ namespace Clicker
             this.checkBoxImageLog.Text = "Сохранять скриншоты";
             this.checkBoxImageLog.UseVisualStyleBackColor = true;
             // 
-            // checkBoxVideo
+            // checkBoxTextLog
             // 
-            this.checkBoxVideo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxVideo.AutoSize = true;
-            this.checkBoxVideo.Location = new System.Drawing.Point(467, 7);
-            this.checkBoxVideo.Name = "checkBoxVideo";
-            this.checkBoxVideo.Size = new System.Drawing.Size(227, 17);
-            this.checkBoxVideo.TabIndex = 2;
-            this.checkBoxVideo.Text = "Сохранять видео";
-            this.checkBoxVideo.UseVisualStyleBackColor = true;
+            this.checkBoxTextLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxTextLog.AutoSize = true;
+            this.checkBoxTextLog.Location = new System.Drawing.Point(3, 7);
+            this.checkBoxTextLog.Name = "checkBoxTextLog";
+            this.checkBoxTextLog.Size = new System.Drawing.Size(226, 17);
+            this.checkBoxTextLog.TabIndex = 0;
+            this.checkBoxTextLog.Text = "Сохранять в файл Log";
+            this.checkBoxTextLog.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -852,6 +859,15 @@ namespace Clicker
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.выходToolStripMenuItem.Text = "Выход";
             // 
+            // textBoxDomain
+            // 
+            this.textBoxDomain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDomain.Location = new System.Drawing.Point(351, 3);
+            this.textBoxDomain.Name = "textBoxDomain";
+            this.textBoxDomain.Size = new System.Drawing.Size(343, 20);
+            this.textBoxDomain.TabIndex = 2;
+            this.textBoxDomain.TextChanged += new System.EventHandler(this.textBoxDomain_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -868,18 +884,18 @@ namespace Clicker
             this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorks)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExcplicitDomain)).EndInit();
@@ -926,7 +942,6 @@ namespace Clicker
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxRequest;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.TextBox textBoxDomain;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.RadioButton radioButton7;
@@ -934,16 +949,12 @@ namespace Clicker
         private System.Windows.Forms.DataGridViewTextBoxColumn domain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.RadioButton radioButton8;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.RadioButton radioButton9;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox6;
@@ -959,6 +970,11 @@ namespace Clicker
         private System.Windows.Forms.ToolStripMenuItem запуститьЗаданиеПоочередноToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem запуститьЗаданияПараллельноToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox4;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.TextBox textBoxDomain;
     }
 }
 

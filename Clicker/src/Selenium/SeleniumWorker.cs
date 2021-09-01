@@ -20,13 +20,17 @@ namespace Clicker.src.Selenium
         private void Init()
         {
             if (seleniumParams.Browser == BrowserEnums.Browsers.firefox)
-                webDriver = new FirefoxDriver();
+                webDriver = new FirefoxDriver(Properties.Resources.FirefoxDriver);
             if (seleniumParams.Browser == BrowserEnums.Browsers.chrome)
-                webDriver = new ChromeDriver();
-            if (seleniumParams.Browser == BrowserEnums.Browsers.edge)
-                webDriver = new EdgeDriver();
-            if (seleniumParams.Browser == BrowserEnums.Browsers.ie)
-                webDriver = new InternetExplorerDriver();
+                webDriver = new ChromeDriver(Properties.Resources.ChromeDriver);
+            if (seleniumParams.Browser == BrowserEnums.Browsers.yandex)
+            {
+                webDriver = new ChromeDriver(Properties.Resources.YandexDriver);
+            }
+            //if (seleniumParams.Browser == BrowserEnums.Browsers.edge)
+            //    webDriver = new EdgeDriver();
+            //if (seleniumParams.Browser == BrowserEnums.Browsers.ie)
+            //    webDriver = new InternetExplorerDriver();
 
             webDriver.Navigate().GoToUrl(seleniumParams.FinderUrl);
 

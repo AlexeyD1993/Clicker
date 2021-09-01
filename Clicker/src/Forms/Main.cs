@@ -23,6 +23,8 @@ namespace Clicker
         {
             InitializeComponent();
             counter = 0;
+
+            buttonAddWork_Click(null, null);
         }
 
         private void UpdateDataGridParam()
@@ -91,6 +93,26 @@ namespace Clicker
                 radioButton5.Checked = true;
             if (currParam.Browser == BrowserEnums.Browsers.yandex)
                 radioButton6.Checked = true;
+
+            if (currParam.FinderUrl.Contains("google"))
+                radioButton1.Checked = true;
+            if (currParam.FinderUrl.Contains("ya"))
+                radioButton2.Checked = true;
+            if (currParam.FinderUrl.Contains("duckduckgo"))
+                radioButton3.Checked = true;
+
+            dataGridViewExcplicitDomain.Rows.Clear();
+            foreach (string explicitDomain in currParam.ExplicitDomain)
+            {
+                dataGridViewExcplicitDomain.Rows.Add(explicitDomain);
+            }
+
+            if (currParam.GotoPageAndRun)
+                radioButton7.Checked = true;
+            if (currParam.GotoPageAndWait)
+                radioButton8.Checked = true;
+            
+
         }
 
         private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
@@ -142,19 +164,19 @@ namespace Clicker
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
-                currParam.FinderUrl = "google.ru";
+                currParam.FinderUrl = "http:\\\\google.ru";
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton2.Checked)
-                currParam.FinderUrl = "yandex.ru";
+                currParam.FinderUrl = "http:\\\\yandex.ru";
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton3.Checked)
-                currParam.FinderUrl = "duckduckgo.ru";
+                currParam.FinderUrl = "http:\\\\duckduckgo.ru";
         }
     }
 }
