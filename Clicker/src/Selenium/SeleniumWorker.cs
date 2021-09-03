@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Clicker.src.Selenium
@@ -16,6 +17,7 @@ namespace Clicker.src.Selenium
     {
         private IWebDriver webDriver;
         Params.SeleniumParams seleniumParams;
+        private IWebElement rememberedHrefSite = null;
 
         private void Init()
         {
@@ -27,10 +29,6 @@ namespace Clicker.src.Selenium
             {
                 webDriver = new ChromeDriver(Properties.Resources.YandexDriver);
             }
-            //if (seleniumParams.Browser == BrowserEnums.Browsers.edge)
-            //    webDriver = new EdgeDriver();
-            //if (seleniumParams.Browser == BrowserEnums.Browsers.ie)
-            //    webDriver = new InternetExplorerDriver();
 
             webDriver.Navigate().GoToUrl(seleniumParams.FinderUrl);
 
@@ -47,34 +45,82 @@ namespace Clicker.src.Selenium
             return findedStringTextBox;
         }
 
-        //private void ClickSearchButton()
-        //{
-        //    IWebElement findedSearchButton = webDriver.FindElement(By.XPath(""));
-        //    if (seleniumParams.FinderUrl.Contains("ya"))
-        //        findedSearchButton = webDriver.FindElement(By.XPath("/html/body/div[1]/div[2]/div[3]/div/fdpprt/fgn/fwap/dqs/fwap/edvrt/ftgr/edvrt/div/edvrt/dhtaq/div/div/div[1]/div[2]/form/div[2]/button"));
-        //    if (seleniumParams.FinderUrl.Contains("duckduckgo"))
-        //        findedSearchButton = webDriver.FindElement(By.XPath("//*[@id=\"search_button_homepage\"]"));
-            
-        //    findedSearchButton.Click();
-        //}
-
         public void RequestFindResult()
         {
             IWebElement findedStringTextBox = FindSearchTextBox();
             findedStringTextBox.SendKeys(seleniumParams.Request);
-
             findedStringTextBox.Submit();
-            //ClickSearchButton();
         }
 
-        public void FindRefOnWebPage()
+        public bool FindRefOnWebPage()
         {
             try
             {
-                webDriver.FindElement(By.PartialLinkText(seleniumParams.FindUrl));
+                rememberedHrefSite = webDriver.FindElement(By.PartialLinkText(seleniumParams.FindUrl));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private IWebElement FindNextPageButton()
+        {
+            IWebElement nextPageButton = null;
+            try
+            {
+                nextPageButton = webDriver.FindElement(By.XPath("/html/body/div[7]/div/div[8]/div[1]/div/div[6]/span[1]/table/tbody/tr/td[12]/a/span[2]"));
             }
             catch
             { }
+            if (seleniumParams.FinderUrl.Contains("ya"))
+            {
+                try
+                {
+                    nextPageButton = webDriver.FindElement(By.XPath("/html/body/div[3]/div[1]/div[2]/div[1]/div[1]/div[3]/div/a[5]"));
+                }
+                catch { }
+            }
+            if (seleniumParams.FinderUrl.Contains("duckduckgo"))
+            {
+                try
+                {
+                    nextPageButton = webDriver.FindElement(By.XPath("//*[@id=\"rld - 3\"]"));
+                }
+                catch { }
+            }
+            return nextPageButton;
+        }
+
+        public void ClickNextPage()
+        {
+            FindNextPageButton().Click();
+        }
+
+        public void RunTask()
+        {
+            if (seleniumParams.GotoPageAndWait)
+            {
+                rememberedHrefSite.Click();
+                Thread.Sleep(seleniumParams.TimeWork * 1000);
+            }
+            if (seleniumParams.GotoPageAndRun)
+            {
+                rememberedHrefSite.Click();
+                //TODO бродилка по внутренностям страницы
+            }
+            if (seleniumParams.GotoPageAndRunNext)
+            {
+                rememberedHrefSite.Click();
+                Thread.Sleep(5000);
+                //TODO сделать возврат в функцию поиска
+            }
+        }
+
+        public void Exit()
+        {
+            webDriver.Quit();
         }
 
         public SeleniumWorker(Params.SeleniumParams seleniumParams)

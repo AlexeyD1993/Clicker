@@ -121,8 +121,15 @@ namespace Clicker
             {
                 SeleniumWorker seleniumWorker = new SeleniumWorker(param);
                 seleniumWorker.RequestFindResult();
+                while (!seleniumWorker.FindRefOnWebPage())
+                    seleniumWorker.ClickNextPage();
 
+                seleniumWorker.RunTask();
+
+                seleniumWorker.Exit();
             }
+
+            MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void запуститьЗаданияПараллельноToolStripMenuItem_Click(object sender, EventArgs e)

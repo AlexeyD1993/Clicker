@@ -19,9 +19,10 @@ namespace Clicker.src.Params
 
         private List<string> explicitDomainList;
 
+        private bool gotoPageAndRunNext;
         private bool gotoPageAndWait;
         private bool gotoPageAndRun;
-        private long timeWork;
+        private int timeWork;
 
         private string proxyIp;
         private string proxyPort;
@@ -49,12 +50,13 @@ namespace Clicker.src.Params
         public List<string> ExplicitDomain { get => explicitDomainList; set => explicitDomainList = value; }
         public bool GotoPageAndWait { get => gotoPageAndWait; set => gotoPageAndWait = value; }
         public bool GotoPageAndRun { get => gotoPageAndRun; set => gotoPageAndRun = value; }
-        public long TimeWork { get => timeWork; set => timeWork = value; }
+        public int TimeWork { get => timeWork; set => timeWork = value; }
         public bool UseJS { get => useJS; set => useJS = value; }
         public bool UseCookie { get => useCookie; set => useCookie = value; }
         public string UserAgent { get => userAgent; set => userAgent = value; }
         public bool UseTextLog { get => useTextLog; set => useTextLog = value; }
         public bool UseImageLog { get => useImageLog; set => useImageLog = value; }
         public bool UseVideoLog { get => useVideoLog; set => useVideoLog = value; }
+        public bool GotoPageAndRunNext { get => gotoPageAndRunNext; set => gotoPageAndRunNext = value; }
     }
 }
