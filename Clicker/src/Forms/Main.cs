@@ -230,5 +230,20 @@ namespace Clicker
         {
             currParam.UseJS = checkBoxJS.Checked;
         }
+
+        private void checkBoxTextLog_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.UseTextLog = checkBoxTextLog.Checked;
+        }
+
+        private void checkBoxImageLog_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.UseImageLog = checkBoxTextLog.Checked;
+        }
+
+        private void checkBoxVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.UseVideoLog = checkBoxVideo.Checked;
+        }
     }
 }

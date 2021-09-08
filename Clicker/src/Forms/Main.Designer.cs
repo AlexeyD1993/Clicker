@@ -826,6 +826,7 @@ namespace Clicker
             this.checkBoxVideo.TabIndex = 2;
             this.checkBoxVideo.Text = "Сохранять видео";
             this.checkBoxVideo.UseVisualStyleBackColor = true;
+            this.checkBoxVideo.CheckedChanged += new System.EventHandler(this.checkBoxVideo_CheckedChanged);
             // 
             // checkBoxImageLog
             // 
@@ -837,6 +838,7 @@ namespace Clicker
             this.checkBoxImageLog.TabIndex = 1;
             this.checkBoxImageLog.Text = "Сохранять скриншоты";
             this.checkBoxImageLog.UseVisualStyleBackColor = true;
+            this.checkBoxImageLog.CheckedChanged += new System.EventHandler(this.checkBoxImageLog_CheckedChanged);
             // 
             // checkBoxTextLog
             // 
@@ -848,6 +850,7 @@ namespace Clicker
             this.checkBoxTextLog.TabIndex = 0;
             this.checkBoxTextLog.Text = "Сохранять в файл Log";
             this.checkBoxTextLog.UseVisualStyleBackColor = true;
+            this.checkBoxTextLog.CheckedChanged += new System.EventHandler(this.checkBoxTextLog_CheckedChanged);
             // 
             // menuStrip1
             // 
