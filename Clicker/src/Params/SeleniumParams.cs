@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,8 +25,8 @@ namespace Clicker.src.Params
         private bool gotoPageAndRun;
         private int timeWork;
 
-        private string proxyIp;
-        private string proxyPort;
+        private IPAddress proxyIP;
+        private IPEndPoint proxyPort;
         private string proxyLogin;
         private string proxyPassword;
 
@@ -40,8 +41,8 @@ namespace Clicker.src.Params
 
         public BrowserEnums.Browsers Browser { get => browser; set => browser = value; }
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }
-        public string ProxyIp { get => proxyIp; set => proxyIp = value; }
-        public string ProxyPort { get => proxyPort; set => proxyPort = value; }
+        public IPAddress ProxyIP { get => proxyIP; set => proxyIP = value; }
+        public IPEndPoint ProxyPort { get => proxyPort; set => proxyPort = value; }
         public string FindUrl { get => findUrl; set => findUrl = value; }
         public string Request { get => request; set => request = value; }
         public string ParamName { get => paramName; set => paramName = value; }
@@ -58,5 +59,6 @@ namespace Clicker.src.Params
         public bool UseImageLog { get => useImageLog; set => useImageLog = value; }
         public bool UseVideoLog { get => useVideoLog; set => useVideoLog = value; }
         public bool GotoPageAndRunNext { get => gotoPageAndRunNext; set => gotoPageAndRunNext = value; }
+        
     }
 }

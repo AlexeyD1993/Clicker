@@ -185,5 +185,50 @@ namespace Clicker
             if (radioButton3.Checked)
                 currParam.FinderUrl = "http:\\\\duckduckgo.ru";
         }
+
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.GotoPageAndRunNext = radioButton7.Checked;
+        }
+
+        private void radioButton8_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.GotoPageAndWait = radioButton8.Checked;
+        }
+
+        private void radioButton9_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.GotoPageAndRun = radioButton9.Checked;
+        }
+
+        private void maskedTextBox2_Validated(object sender, EventArgs e)
+        {
+            currParam.ProxyIP = System.Net.IPAddress.Parse(maskedTextBox2.Text);
+        }
+
+        private void maskedTextBox3_Validated(object sender, EventArgs e)
+        {
+            currParam.ProxyPort = new System.Net.IPEndPoint(currParam.ProxyIP, Int32.Parse(maskedTextBox3.Text));
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            currParam.ProxyLogin = textBox5.Text;
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            currParam.ProxyPassword = textBox6.Text;
+        }
+
+        private void checkBoxCookie_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.UseCookie = checkBoxCookie.Checked;
+        }
+
+        private void checkBoxJS_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.UseJS = checkBoxJS.Checked;
+        }
     }
 }

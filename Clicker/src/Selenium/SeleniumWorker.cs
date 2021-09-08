@@ -95,6 +95,7 @@ namespace Clicker.src.Selenium
 
         public void ClickNextPage()
         {
+            Thread.Sleep(2000);
             FindNextPageButton().Click();
         }
 
