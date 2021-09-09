@@ -9,35 +9,35 @@ namespace Clicker.src.Params
 {
     class SeleniumParams
     {
-        private string paramName;
+        private string paramName = "";
         
-        private string findUrl;
-        private string request;
+        private string findUrl = "";
+        private string request = "";
 
         private BrowserEnums.Browsers browser;
 
-        private string finderUrl;
+        private string finderUrl = "";
 
-        private List<string> explicitDomainList;
+        private List<string> explicitDomainList = new List<string>();
 
-        private bool gotoPageAndRunNext;
-        private bool gotoPageAndWait;
-        private bool gotoPageAndRun;
-        private int timeWork;
+        private bool gotoPageAndRunNext = false;
+        private bool gotoPageAndWait = false;
+        private bool gotoPageAndRun = false;
+        private int timeWork = 0;
 
-        private IPAddress proxyIP;
-        private IPEndPoint proxyPort;
-        private string proxyLogin;
-        private string proxyPassword;
+        private IPAddress proxyIP = IPAddress.Loopback;
+        private IPEndPoint proxyPort = new IPEndPoint(IPAddress.Loopback, 80);
+        private string proxyLogin = "";
+        private string proxyPassword = "";
 
         private string userAgent;
 
-        private bool useJS;
-        private bool useCookie;
+        private bool useJS = true;
+        private bool useCookie = true;
 
-        private bool useTextLog;
-        private bool useImageLog;
-        private bool useVideoLog;
+        private bool useTextLog = false;
+        private bool useImageLog = false;
+        private bool useVideoLog = false;
 
         public BrowserEnums.Browsers Browser { get => browser; set => browser = value; }
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }

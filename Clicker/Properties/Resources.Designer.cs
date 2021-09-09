@@ -79,7 +79,7 @@ namespace Clicker.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Drivers\x32\Yandex\yandexdriver.exe.
+        ///   Ищет локализованную строку, похожую на Drivers\x32\Yandex.
         /// </summary>
         internal static string YandexDriver {
             get {

@@ -40,6 +40,7 @@ namespace Clicker.src.Logger
         public LoggerWorker(SeleniumParams param)
         {
             this.param = param;
+            Initialize();
         }
 
         public void Add(string message, IWebDriver webDriver)

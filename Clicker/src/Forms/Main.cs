@@ -80,12 +80,20 @@ namespace Clicker
             for (int i = 0; i < seleniumParams.Count; i++)
             {
                 if (seleniumParams[i].ParamName == selectedParamName)
+                {
                     currParam = seleniumParams[i];
+                    break;
+                }
             }
 
             //view state in page
             textBoxRequest.Text = currParam.Request;
             textBoxDomain.Text = currParam.FindUrl;
+            
+
+            radioButton4.Checked = false;
+            radioButton5.Checked = false;
+            radioButton6.Checked = false;
 
             if (currParam.Browser == BrowserEnums.Browsers.firefox)
                 radioButton4.Checked = true;
@@ -93,6 +101,10 @@ namespace Clicker
                 radioButton5.Checked = true;
             if (currParam.Browser == BrowserEnums.Browsers.yandex)
                 radioButton6.Checked = true;
+
+            radioButton1.Checked = false;
+            radioButton2.Checked = false;
+            radioButton3.Checked = false;
 
             if (currParam.FinderUrl.Contains("google"))
                 radioButton1.Checked = true;
@@ -107,26 +119,62 @@ namespace Clicker
                 dataGridViewExcplicitDomain.Rows.Add(explicitDomain);
             }
 
-            if (currParam.GotoPageAndRun)
-                radioButton7.Checked = true;
-            if (currParam.GotoPageAndWait)
-                radioButton8.Checked = true;
-            
+            checkBoxExplicitDomain.Checked = false;
+            checkBoxGotoPageAndWait.Checked = false;
+            checkBoxClickAndRun.Checked = false;
 
+            if (currParam.ExplicitDomain.Count != 0)
+                checkBoxExplicitDomain.Checked = true;
+            if (currParam.GotoPageAndRun)
+                checkBoxClickAndRun.Checked = true;
+            if (currParam.GotoPageAndWait)
+                checkBoxGotoPageAndWait.Checked = true;
+
+            checkBoxJS.Checked = false;
+            checkBoxCookie.Checked = false;
+
+            if (currParam.UseJS)
+                checkBoxJS.Checked = true;
+            if (currParam.UseCookie)
+                checkBoxCookie.Checked = true;
+
+
+            checkBoxTextLog.Checked = false;
+            checkBoxVideo.Checked = false;
+            checkBoxImageLog.Checked = false;
+
+            if (currParam.UseTextLog)
+                checkBoxTextLog.Checked = true;
+            if (currParam.UseImageLog)
+                checkBoxImageLog.Checked = true;
+            if (currParam.UseVideoLog)
+                checkBoxVideo.Checked = true;
+
+            maskedTextBox2.Text = currParam.ProxyIP.ToString();
+            maskedTextBox3.Text = currParam.ProxyPort.Port.ToString();
+            textBox5.Text = currParam.ProxyLogin;
+            textBox6.Text = currParam.ProxyPassword;
+
+            
+        }
+
+        private void RunTask(SeleniumParams param)
+        {
+            SeleniumWorker seleniumWorker = new SeleniumWorker(param);
+            seleniumWorker.RequestFindResult();
+            while (!seleniumWorker.FindRefOnWebPage())
+                seleniumWorker.ClickNextPage();
+
+            seleniumWorker.RunTask();
+
+            seleniumWorker.Exit();
         }
 
         private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (SeleniumParams param in seleniumParams)
             {
-                SeleniumWorker seleniumWorker = new SeleniumWorker(param);
-                seleniumWorker.RequestFindResult();
-                while (!seleniumWorker.FindRefOnWebPage())
-                    seleniumWorker.ClickNextPage();
-
-                seleniumWorker.RunTask();
-
-                seleniumWorker.Exit();
+                RunTask(param);
             }
 
             MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -134,10 +182,31 @@ namespace Clicker
 
         private void запуститьЗаданияПараллельноToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            List<Task> taskList = new List<Task>();
             foreach (SeleniumParams param in seleniumParams)
             {
-                
+                Action<object> action = (object obj) =>
+                {
+                    RunTask(param);
+                };
+
+                taskList.Add(new Task(action, param.ParamName));
+                taskList.Last().Start();
             }
+
+            bool allEnd = false;
+
+            while (!allEnd)
+            {
+                for (int i = 0; i < taskList.Count; i++)
+                {
+                    if (!(taskList[i].IsCompleted || taskList[i].IsFaulted))
+                        break;
+                    allEnd = true;
+                }
+            }
+
+            MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void textBoxRequest_TextChanged(object sender, EventArgs e)
@@ -186,21 +255,6 @@ namespace Clicker
                 currParam.FinderUrl = "http:\\\\duckduckgo.ru";
         }
 
-        private void radioButton7_CheckedChanged(object sender, EventArgs e)
-        {
-            currParam.GotoPageAndRunNext = radioButton7.Checked;
-        }
-
-        private void radioButton8_CheckedChanged(object sender, EventArgs e)
-        {
-            currParam.GotoPageAndWait = radioButton8.Checked;
-        }
-
-        private void radioButton9_CheckedChanged(object sender, EventArgs e)
-        {
-            currParam.GotoPageAndRun = radioButton9.Checked;
-        }
-
         private void maskedTextBox2_Validated(object sender, EventArgs e)
         {
             currParam.ProxyIP = System.Net.IPAddress.Parse(maskedTextBox2.Text);
@@ -238,12 +292,65 @@ namespace Clicker
 
         private void checkBoxImageLog_CheckedChanged(object sender, EventArgs e)
         {
-            currParam.UseImageLog = checkBoxTextLog.Checked;
+            currParam.UseImageLog = checkBoxImageLog.Checked;
         }
 
         private void checkBoxVideo_CheckedChanged(object sender, EventArgs e)
         {
             currParam.UseVideoLog = checkBoxVideo.Checked;
+        }
+
+        private void maskedTextBox4_Validated(object sender, EventArgs e)
+        {
+            currParam.TimeWork = Int32.Parse(maskedTextBox4.Text);
+        }
+
+        private void maskedTextBox1_Validated(object sender, EventArgs e)
+        {
+            currParam.TimeWork = Int32.Parse(maskedTextBox1.Text);
+        }
+
+        private void checkBoxClickAndRun_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxClickAndRun.Checked)
+            {
+                checkBoxGotoPageAndWait.Checked = false;
+                currParam.GotoPageAndWait = false;
+            }
+            currParam.GotoPageAndRun = checkBoxClickAndRun.Checked;
+        }
+
+        private void checkBoxGotoPageAndWait_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxGotoPageAndWait.Checked)
+            {
+                checkBoxClickAndRun.Checked = false;
+                currParam.GotoPageAndRun = false;
+            }
+
+            currParam.GotoPageAndWait = checkBoxGotoPageAndWait.Checked;
+        }
+
+        private void checkBoxExplicitDomain_CheckedChanged(object sender, EventArgs e)
+        {
+            currParam.GotoPageAndRunNext = checkBoxExplicitDomain.Checked;
+        }
+
+        private void UpdateExplicitDomain()
+        {
+            List<string> explicitDomain = new List<string>();
+            for (int i = 0; i < dataGridViewExcplicitDomain.Rows.Count - 1; i++)
+            {
+                if (dataGridViewExcplicitDomain.Rows[i].Cells["domain"].Value != null)
+                    if (!string.IsNullOrWhiteSpace(dataGridViewExcplicitDomain.Rows[i].Cells["domain"].Value.ToString()))
+                        explicitDomain.Add(dataGridViewExcplicitDomain.Rows[i].Cells["domain"].Value.ToString());
+            }
+            currParam.ExplicitDomain = explicitDomain;
+        }
+
+        private void dataGridViewExcplicitDomain_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            UpdateExplicitDomain();
         }
     }
 }

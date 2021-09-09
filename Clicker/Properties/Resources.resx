@@ -124,6 +124,6 @@
     <value>Drivers\x64\Firefox</value>
   </data>
   <data name="YandexDriver" xml:space="preserve">
-    <value>Drivers\x32\Yandex\yandexdriver.exe</value>
+    <value>Drivers\x32\Yandex</value>
   </data>
 </root>
