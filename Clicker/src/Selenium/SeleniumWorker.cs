@@ -1,8 +1,11 @@
 ﻿using Clicker.src.Logger;
 using Clicker.src.Params;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Service;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,39 +29,50 @@ namespace Clicker.src.Selenium
         private void Init()
         {
             log = new LoggerWorker(seleniumParams);
-            
+
             try
             {
                 if (seleniumParams.Browser == BrowserEnums.Browsers.firefox)
                 {
                     var firefoxOptions = new FirefoxOptions();
                     FirefoxProfile p = new FirefoxProfile();
-                    if (!((seleniumParams.ProxyIP == IPAddress.Loopback) || seleniumParams.ProxyIP == null))
+                    if ((seleniumParams.ProxyIP != IPAddress.Loopback) &&
+                        (seleniumParams.ProxyIP != null))
                     {
                         var proxy = new Proxy();
                         if (seleniumParams.ProxyType.Contains("http"))
                         {
-                            proxy.HttpProxy = HttpUtility.UrlEncode(seleniumParams.ProxyLogin) + ':' +
+                            if (!string.IsNullOrWhiteSpace(seleniumParams.ProxyLogin))
+                                proxy.HttpProxy = HttpUtility.UrlEncode(seleniumParams.ProxyLogin) + ':' +
                                               HttpUtility.UrlEncode(seleniumParams.ProxyPassword) + '@' +
                                               seleniumParams.ProxyPort.ToString();
+                            else
+                                proxy.HttpProxy = seleniumParams.ProxyPort.ToString();
+                            firefoxOptions.Proxy = proxy;
                         }
-                        else if (seleniumParams.ProxyType.Contains("socks"))
+                        else if(seleniumParams.ProxyType.Contains("socks"))
                         {
-                            proxy.SocksProxy = seleniumParams.ProxyPort.ToString();
-                            proxy.SocksUserName = seleniumParams.ProxyLogin;
-                            proxy.SocksPassword = seleniumParams.ProxyPassword;
+                            p.SetPreference("network.proxy.socks", seleniumParams.ProxyPort.Address.ToString());
+                            p.SetPreference("network.proxy.socks_port", seleniumParams.ProxyPort.Port.ToString());
+
                         }
-                        firefoxOptions.Proxy = proxy;
+                        //else if (seleniumParams.ProxyType.Contains("socks"))
+                        //{
+                        //    proxy.SocksProxy = seleniumParams.ProxyPort.ToString();
+                        //    proxy.SocksUserName = seleniumParams.ProxyLogin;
+                        //    proxy.SocksPassword = seleniumParams.ProxyPassword;
+                        //}
+                        
                     }
                     if (!seleniumParams.UseJS)
                     {
-                        ProfilesIni allProfiles = new ProfilesIni();
-                        FirefoxProfile profile = allProfiles.getProfile("NoJs");
+                        //ProfilesIni allProfiles = new ProfilesIni();
+                        //FirefoxProfile profile = allProfiles.getProfile("NoJs");
                         //p.SetPreference("javascript.enabled", false);
                     }
                     if (!seleniumParams.UseCookie)
                     {
-                       // p.SetPreference("network.cookie.cookieBehavior", 2);
+                        // p.SetPreference("network.cookie.cookieBehavior", 2);
                     }
                     firefoxOptions.Profile = p;
 
@@ -95,6 +109,31 @@ namespace Clicker.src.Selenium
 
                     //TODO YandexDriver!
                 }
+                if (seleniumParams.Browser == BrowserEnums.Browsers.mobile)
+                {
+                    
+                    string browserName = Properties.Settings.Default.BrowserName;
+                    string browserVersion = Properties.Settings.Default.BrowserVersion;
+                    Platform platform = null;
+                    if (Properties.Settings.Default.PlatformName.Contains("ndroid"))
+                        platform = new Platform(PlatformType.Android);
+                    else if (Properties.Settings.Default.PlatformName.Contains("ios"))
+                        platform = new Platform(PlatformType.Mac);
+                    else
+                        platform = new Platform(PlatformType.Any);
+                    
+
+                    DesiredCapabilities capabilities = new DesiredCapabilities(browserName, browserVersion, platform);
+
+                    //webDriver = new RemoteWebDriver(capabilities);
+                    //Url url = new Url("http://127.0.0.1:4723/wd/hub");
+                    //AppiumLocalService service = new AppiumLocalService();
+                    //webDriver = new AppiumDriver(capabilities);
+                    //webDriver.Manage().Window.Size = new System.Drawing.Size(Properties.Settings.Default.BrowserSizeX, Properties.Settings.Default.BrowserSizeY);
+
+                }
+
+
             }
             catch (Exception e)
             {
@@ -104,8 +143,18 @@ namespace Clicker.src.Selenium
 
             webDriver.Manage().Window.Maximize();
 
-            webDriver.Navigate().GoToUrl(seleniumParams.FinderUrl);
-            log.Add("Браузер запущен", webDriver);
+            try
+            {
+                webDriver.Navigate().GoToUrl(seleniumParams.FinderUrl);
+                log.Add("Браузер запущен", webDriver);
+            }
+            catch (WebDriverException ex)
+            {
+                MessageBox.Show("Ошибка подключения к сайту! Проверьте настройки сети", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Add("Ошибка подключения к сайту! Проверьте настройки сети", webDriver);
+                throw ex;
+            }
+            
         }
 
         private IWebElement FindSearchTextBox()

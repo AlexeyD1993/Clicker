@@ -12,7 +12,8 @@ namespace Clicker.src.Params
         {
             firefox, 
             chrome, 
-            yandex
+            yandex,
+            mobile
         }
     }
 }

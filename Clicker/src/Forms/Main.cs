@@ -147,10 +147,10 @@ namespace Clicker
             if (currParam.UseImageLog)
                 checkBoxImageLog.Checked = true;
 
-            maskedTextBox2.Text = currParam.ProxyIP.ToString();
+            maskedTextBoxProxyIp.Text = currParam.ProxyIP.ToString();
             numericUpDownProxyPort.Value = currParam.ProxyPort.Port;
-            textBox5.Text = currParam.ProxyLogin;
-            textBox6.Text = currParam.ProxyPassword;
+            textBoxProxyUsername.Text = currParam.ProxyLogin;
+            textBoxProxyPort.Text = currParam.ProxyPassword;
 
             
         }
@@ -167,43 +167,78 @@ namespace Clicker
             seleniumWorker.Exit();
         }
 
-        private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool CheckParamOnCorrect()
         {
-            foreach (SeleniumParams param in seleniumParams)
+            if (string.IsNullOrWhiteSpace(textBoxRequest.Text))
             {
-                RunTask(param);
+                MessageBox.Show(this, "Не введено значение парамертра поиска!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
+            if (!radioButton4.Checked &&
+                !radioButton5.Checked &&
+                !radioButton6.Checked &&
+                !radioButtonOtherBrowser.Checked)
+            {
+                MessageBox.Show(this, "Не выбран браузер для использования!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
 
-            MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!radioButton1.Checked &&
+                !radioButton2.Checked &&
+                !radioButton3.Checked)
+            {
+                MessageBox.Show(this, "Не выбран поисковик для использования!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CheckParamOnCorrect())
+            {
+
+                foreach (SeleniumParams param in seleniumParams)
+                {
+                    RunTask(param);
+                }
+
+                MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void запуститьЗаданияПараллельноToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<Task> taskList = new List<Task>();
-            foreach (SeleniumParams param in seleniumParams)
+            if (CheckParamOnCorrect())
             {
-                Action<object> action = (object obj) =>
+                List<Task> taskList = new List<Task>();
+                foreach (SeleniumParams param in seleniumParams)
                 {
-                    RunTask(param);
-                };
+                    Action<object> action = (object obj) =>
+                    {
+                        RunTask(param);
+                    };
 
-                taskList.Add(new Task(action, param.ParamName));
-                taskList.Last().Start();
-            }
-
-            bool allEnd = false;
-
-            while (!allEnd)
-            {
-                for (int i = 0; i < taskList.Count; i++)
-                {
-                    if (!(taskList[i].IsCompleted || taskList[i].IsFaulted))
-                        break;
-                    allEnd = true;
+                    taskList.Add(new Task(action, param.ParamName));
+                    taskList.Last().Start();
                 }
-            }
 
-            MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                bool allEnd = false;
+
+                while (!allEnd)
+                {
+                    for (int i = 0; i < taskList.Count; i++)
+                    {
+                        if (!(taskList[i].IsCompleted || taskList[i].IsFaulted))
+                            break;
+                        allEnd = true;
+                    }
+                }
+
+                MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void textBoxRequest_TextChanged(object sender, EventArgs e)
@@ -254,17 +289,17 @@ namespace Clicker
 
         private void maskedTextBox2_Validated(object sender, EventArgs e)
         {
-            currParam.ProxyIP = System.Net.IPAddress.Parse(maskedTextBox2.Text);
+            currParam.ProxyIP = System.Net.IPAddress.Parse(maskedTextBoxProxyIp.Text.Replace(" ", ""));
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            currParam.ProxyLogin = textBox5.Text;
+            currParam.ProxyLogin = textBoxProxyUsername.Text;
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-            currParam.ProxyPassword = textBox6.Text;
+            currParam.ProxyPassword = textBoxProxyPort.Text;
         }
 
         private void checkBoxCookie_CheckedChanged(object sender, EventArgs e)
@@ -347,17 +382,23 @@ namespace Clicker
 
         private void comboBoxProxyType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currParam.ProxyType = e.ToString();
+            currParam.ProxyType = comboBoxProxyType.Text;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            currParam.ProxyPort = new System.Net.IPEndPoint(currParam.ProxyIP, Int32.Parse(e.ToString()));
+            currParam.ProxyPort = new System.Net.IPEndPoint(currParam.ProxyIP, (int)numericUpDownProxyPort.Value);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBoxProxyType.Text = "Без proxy";
+        }
+
+        private void radioButtonOtherBrowser_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonOtherBrowser.Checked)
+                currParam.Browser = BrowserEnums.Browsers.mobile;
         }
     }
 }

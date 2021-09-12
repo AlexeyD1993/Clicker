@@ -49,6 +49,7 @@ namespace Clicker
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButtonOtherBrowser = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxRequest = new System.Windows.Forms.TextBox();
@@ -67,13 +68,15 @@ namespace Clicker
             this.maskedTextBox4 = new System.Windows.Forms.MaskedTextBox();
             this.checkBoxClickAndRun = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxProxyUsername = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBoxProxyPort = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxProxyIp = new System.Windows.Forms.MaskedTextBox();
+            this.numericUpDownProxyPort = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxProxyType = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxCookie = new System.Windows.Forms.CheckBox();
             this.checkBoxJS = new System.Windows.Forms.CheckBox();
@@ -84,8 +87,6 @@ namespace Clicker
             this.запуститьЗаданиеПоочередноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.запуститьЗаданияПараллельноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericUpDownProxyPort = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxProxyType = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -102,10 +103,10 @@ namespace Clicker
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProxyPort)).BeginInit();
             this.tableLayoutPanel15.SuspendLayout();
             this.tableLayoutPanel16.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProxyPort)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -360,11 +361,13 @@ namespace Clicker
             this.tableLayoutPanel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel11.ColumnCount = 1;
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.ColumnCount = 2;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel11.Controls.Add(this.radioButton4, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.radioButton5, 0, 1);
             this.tableLayoutPanel11.Controls.Add(this.radioButton6, 0, 2);
+            this.tableLayoutPanel11.Controls.Add(this.radioButtonOtherBrowser, 1, 0);
             this.tableLayoutPanel11.Location = new System.Drawing.Point(351, 3);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 3;
@@ -412,6 +415,19 @@ namespace Clicker
             this.radioButton6.Text = "Yandex";
             this.radioButton6.UseVisualStyleBackColor = true;
             this.radioButton6.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
+            // 
+            // radioButtonOtherBrowser
+            // 
+            this.radioButtonOtherBrowser.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.radioButtonOtherBrowser.AutoSize = true;
+            this.radioButtonOtherBrowser.Location = new System.Drawing.Point(174, 4);
+            this.radioButtonOtherBrowser.Name = "radioButtonOtherBrowser";
+            this.radioButtonOtherBrowser.Size = new System.Drawing.Size(128, 17);
+            this.radioButtonOtherBrowser.TabIndex = 3;
+            this.radioButtonOtherBrowser.TabStop = true;
+            this.radioButtonOtherBrowser.Text = "Мобильный браузер";
+            this.radioButtonOtherBrowser.UseVisualStyleBackColor = true;
+            this.radioButtonOtherBrowser.CheckedChanged += new System.EventHandler(this.radioButtonOtherBrowser_CheckedChanged);
             // 
             // tableLayoutPanel5
             // 
@@ -531,7 +547,7 @@ namespace Clicker
             this.checkBoxExplicitDomain.Checked = true;
             this.checkBoxExplicitDomain.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxExplicitDomain.Location = new System.Drawing.Point(2, 2);
-            this.checkBoxExplicitDomain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxExplicitDomain.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxExplicitDomain.Name = "checkBoxExplicitDomain";
             this.checkBoxExplicitDomain.Size = new System.Drawing.Size(459, 17);
             this.checkBoxExplicitDomain.TabIndex = 2;
@@ -575,7 +591,7 @@ namespace Clicker
             this.checkBoxGotoPageAndWait.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.checkBoxGotoPageAndWait.AutoSize = true;
             this.checkBoxGotoPageAndWait.Location = new System.Drawing.Point(2, 4);
-            this.checkBoxGotoPageAndWait.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxGotoPageAndWait.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxGotoPageAndWait.Name = "checkBoxGotoPageAndWait";
             this.checkBoxGotoPageAndWait.Size = new System.Drawing.Size(367, 17);
             this.checkBoxGotoPageAndWait.TabIndex = 2;
@@ -631,7 +647,7 @@ namespace Clicker
             this.checkBoxClickAndRun.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.checkBoxClickAndRun.AutoSize = true;
             this.checkBoxClickAndRun.Location = new System.Drawing.Point(2, 4);
-            this.checkBoxClickAndRun.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxClickAndRun.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxClickAndRun.Name = "checkBoxClickAndRun";
             this.checkBoxClickAndRun.Size = new System.Drawing.Size(219, 17);
             this.checkBoxClickAndRun.TabIndex = 9;
@@ -653,14 +669,14 @@ namespace Clicker
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77778F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77778F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel14.Controls.Add(this.textBox5, 5, 0);
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel14.Controls.Add(this.textBoxProxyUsername, 5, 0);
             this.tableLayoutPanel14.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel14.Controls.Add(this.label7, 2, 0);
             this.tableLayoutPanel14.Controls.Add(this.label8, 4, 0);
-            this.tableLayoutPanel14.Controls.Add(this.textBox6, 7, 0);
+            this.tableLayoutPanel14.Controls.Add(this.textBoxProxyPort, 7, 0);
             this.tableLayoutPanel14.Controls.Add(this.label9, 6, 0);
-            this.tableLayoutPanel14.Controls.Add(this.maskedTextBox2, 1, 0);
+            this.tableLayoutPanel14.Controls.Add(this.maskedTextBoxProxyIp, 1, 0);
             this.tableLayoutPanel14.Controls.Add(this.numericUpDownProxyPort, 3, 0);
             this.tableLayoutPanel14.Controls.Add(this.comboBoxProxyType, 8, 0);
             this.tableLayoutPanel14.Location = new System.Drawing.Point(3, 419);
@@ -670,16 +686,16 @@ namespace Clicker
             this.tableLayoutPanel14.Size = new System.Drawing.Size(697, 25);
             this.tableLayoutPanel14.TabIndex = 8;
             // 
-            // textBox5
+            // textBoxProxyUsername
             // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBoxProxyUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(362, 3);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(97, 20);
-            this.textBox5.TabIndex = 5;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.textBoxProxyUsername.Location = new System.Drawing.Point(360, 3);
+            this.textBoxProxyUsername.Name = "textBoxProxyUsername";
+            this.textBoxProxyUsername.Size = new System.Drawing.Size(95, 20);
+            this.textBoxProxyUsername.TabIndex = 5;
+            this.textBoxProxyUsername.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // label6
             // 
@@ -695,7 +711,7 @@ namespace Clicker
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(168, 6);
+            this.label7.Location = new System.Drawing.Point(166, 6);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 2;
@@ -705,47 +721,88 @@ namespace Clicker
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(295, 6);
+            this.label8.Location = new System.Drawing.Point(293, 6);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(61, 13);
             this.label8.TabIndex = 4;
             this.label8.Text = "User name:";
             // 
-            // textBox6
+            // textBoxProxyPort
             // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBoxProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(530, 3);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.PasswordChar = '●';
-            this.textBox6.Size = new System.Drawing.Size(97, 20);
-            this.textBox6.TabIndex = 6;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.textBoxProxyPort.Location = new System.Drawing.Point(526, 3);
+            this.textBoxProxyPort.Name = "textBoxProxyPort";
+            this.textBoxProxyPort.PasswordChar = '●';
+            this.textBoxProxyPort.Size = new System.Drawing.Size(95, 20);
+            this.textBoxProxyPort.TabIndex = 6;
+            this.textBoxProxyPort.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(468, 6);
+            this.label9.Location = new System.Drawing.Point(464, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 7;
             this.label9.Text = "Password:";
             // 
-            // maskedTextBox2
+            // maskedTextBoxProxyIp
             // 
-            this.maskedTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.maskedTextBoxProxyIp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBox2.Location = new System.Drawing.Point(63, 3);
-            this.maskedTextBox2.Mask = "###.###.###.###";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(97, 20);
-            this.maskedTextBox2.TabIndex = 8;
-            this.maskedTextBox2.Text = "127000000001";
-            this.maskedTextBox2.ValidatingType = typeof(System.Net.IPAddress);
-            this.maskedTextBox2.Validated += new System.EventHandler(this.maskedTextBox2_Validated);
+            this.maskedTextBoxProxyIp.Location = new System.Drawing.Point(63, 3);
+            this.maskedTextBoxProxyIp.Mask = "###\\.###\\.###\\.###";
+            this.maskedTextBoxProxyIp.Name = "maskedTextBoxProxyIp";
+            this.maskedTextBoxProxyIp.Size = new System.Drawing.Size(95, 20);
+            this.maskedTextBoxProxyIp.TabIndex = 8;
+            this.maskedTextBoxProxyIp.Text = "127000000001";
+            this.maskedTextBoxProxyIp.Validated += new System.EventHandler(this.maskedTextBox2_Validated);
+            // 
+            // numericUpDownProxyPort
+            // 
+            this.numericUpDownProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownProxyPort.Location = new System.Drawing.Point(229, 3);
+            this.numericUpDownProxyPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numericUpDownProxyPort.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownProxyPort.Name = "numericUpDownProxyPort";
+            this.numericUpDownProxyPort.Size = new System.Drawing.Size(55, 20);
+            this.numericUpDownProxyPort.TabIndex = 9;
+            this.numericUpDownProxyPort.Value = new decimal(new int[] {
+            80,
+            0,
+            0,
+            0});
+            this.numericUpDownProxyPort.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // comboBoxProxyType
+            // 
+            this.comboBoxProxyType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxProxyType.FormattingEnabled = true;
+            this.comboBoxProxyType.Items.AddRange(new object[] {
+            "Без proxy",
+            "http",
+            "socks"});
+            this.comboBoxProxyType.Location = new System.Drawing.Point(627, 3);
+            this.comboBoxProxyType.Name = "comboBoxProxyType";
+            this.comboBoxProxyType.Size = new System.Drawing.Size(67, 21);
+            this.comboBoxProxyType.TabIndex = 10;
+            this.comboBoxProxyType.SelectedIndexChanged += new System.EventHandler(this.comboBoxProxyType_SelectedIndexChanged);
             // 
             // tableLayoutPanel15
             // 
@@ -869,48 +926,6 @@ namespace Clicker
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
-            // numericUpDownProxyPort
-            // 
-            this.numericUpDownProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownProxyPort.Location = new System.Drawing.Point(231, 3);
-            this.numericUpDownProxyPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericUpDownProxyPort.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownProxyPort.Name = "numericUpDownProxyPort";
-            this.numericUpDownProxyPort.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownProxyPort.TabIndex = 9;
-            this.numericUpDownProxyPort.Value = new decimal(new int[] {
-            80,
-            0,
-            0,
-            0});
-            this.numericUpDownProxyPort.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-            // 
-            // comboBoxProxyType
-            // 
-            this.comboBoxProxyType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxProxyType.FormattingEnabled = true;
-            this.comboBoxProxyType.Items.AddRange(new object[] {
-            "Без proxy",
-            "http",
-            "socks"});
-            this.comboBoxProxyType.Location = new System.Drawing.Point(633, 3);
-            this.comboBoxProxyType.Name = "comboBoxProxyType";
-            this.comboBoxProxyType.Size = new System.Drawing.Size(61, 21);
-            this.comboBoxProxyType.TabIndex = 10;
-            this.comboBoxProxyType.SelectedIndexChanged += new System.EventHandler(this.comboBoxProxyType_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -949,13 +964,13 @@ namespace Clicker
             this.tableLayoutPanel13.PerformLayout();
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tableLayoutPanel14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProxyPort)).EndInit();
             this.tableLayoutPanel15.ResumeLayout(false);
             this.tableLayoutPanel15.PerformLayout();
             this.tableLayoutPanel16.ResumeLayout(false);
             this.tableLayoutPanel16.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownProxyPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -995,11 +1010,11 @@ namespace Clicker
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxProxyUsername;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBoxProxyPort;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
         private System.Windows.Forms.CheckBox checkBoxCookie;
@@ -1013,13 +1028,14 @@ namespace Clicker
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox4;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxProxyIp;
         private System.Windows.Forms.TextBox textBoxDomain;
         private System.Windows.Forms.CheckBox checkBoxExplicitDomain;
         private System.Windows.Forms.CheckBox checkBoxGotoPageAndWait;
         private System.Windows.Forms.CheckBox checkBoxClickAndRun;
         private System.Windows.Forms.NumericUpDown numericUpDownProxyPort;
         private System.Windows.Forms.ComboBox comboBoxProxyType;
+        private System.Windows.Forms.RadioButton radioButtonOtherBrowser;
     }
 }
 
