@@ -140,18 +140,15 @@ namespace Clicker
 
 
             checkBoxTextLog.Checked = false;
-            checkBoxVideo.Checked = false;
             checkBoxImageLog.Checked = false;
 
             if (currParam.UseTextLog)
                 checkBoxTextLog.Checked = true;
             if (currParam.UseImageLog)
                 checkBoxImageLog.Checked = true;
-            if (currParam.UseVideoLog)
-                checkBoxVideo.Checked = true;
 
             maskedTextBox2.Text = currParam.ProxyIP.ToString();
-            maskedTextBox3.Text = currParam.ProxyPort.Port.ToString();
+            numericUpDownProxyPort.Value = currParam.ProxyPort.Port;
             textBox5.Text = currParam.ProxyLogin;
             textBox6.Text = currParam.ProxyPassword;
 
@@ -162,8 +159,8 @@ namespace Clicker
         {
             SeleniumWorker seleniumWorker = new SeleniumWorker(param);
             seleniumWorker.RequestFindResult();
-            while (!seleniumWorker.FindRefOnWebPage())
-                seleniumWorker.ClickNextPage();
+            //while (!seleniumWorker.FindRefOnWebPage())
+            //    seleniumWorker.ClickNextPage();
 
             seleniumWorker.RunTask();
 
@@ -260,11 +257,6 @@ namespace Clicker
             currParam.ProxyIP = System.Net.IPAddress.Parse(maskedTextBox2.Text);
         }
 
-        private void maskedTextBox3_Validated(object sender, EventArgs e)
-        {
-            currParam.ProxyPort = new System.Net.IPEndPoint(currParam.ProxyIP, Int32.Parse(maskedTextBox3.Text));
-        }
-
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
             currParam.ProxyLogin = textBox5.Text;
@@ -293,11 +285,6 @@ namespace Clicker
         private void checkBoxImageLog_CheckedChanged(object sender, EventArgs e)
         {
             currParam.UseImageLog = checkBoxImageLog.Checked;
-        }
-
-        private void checkBoxVideo_CheckedChanged(object sender, EventArgs e)
-        {
-            currParam.UseVideoLog = checkBoxVideo.Checked;
         }
 
         private void maskedTextBox4_Validated(object sender, EventArgs e)
@@ -351,6 +338,26 @@ namespace Clicker
         private void dataGridViewExcplicitDomain_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             UpdateExplicitDomain();
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void comboBoxProxyType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currParam.ProxyType = e.ToString();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            currParam.ProxyPort = new System.Net.IPEndPoint(currParam.ProxyIP, Int32.Parse(e.ToString()));
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBoxProxyType.Text = "Без proxy";
         }
     }
 }

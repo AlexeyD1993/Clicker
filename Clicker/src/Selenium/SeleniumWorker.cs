@@ -36,19 +36,29 @@ namespace Clicker.src.Selenium
                     if (!((seleniumParams.ProxyIP == IPAddress.Loopback) || seleniumParams.ProxyIP == null))
                     {
                         var proxy = new Proxy();
-                        proxy.HttpProxy = HttpUtility.UrlEncode(seleniumParams.ProxyLogin) + ':' +
-                                          HttpUtility.UrlEncode(seleniumParams.ProxyPassword) + '@' +
-                                          seleniumParams.ProxyPort.ToString();
-                        
+                        if (seleniumParams.ProxyType.Contains("http"))
+                        {
+                            proxy.HttpProxy = HttpUtility.UrlEncode(seleniumParams.ProxyLogin) + ':' +
+                                              HttpUtility.UrlEncode(seleniumParams.ProxyPassword) + '@' +
+                                              seleniumParams.ProxyPort.ToString();
+                        }
+                        else if (seleniumParams.ProxyType.Contains("socks"))
+                        {
+                            proxy.SocksProxy = seleniumParams.ProxyPort.ToString();
+                            proxy.SocksUserName = seleniumParams.ProxyLogin;
+                            proxy.SocksPassword = seleniumParams.ProxyPassword;
+                        }
                         firefoxOptions.Proxy = proxy;
                     }
                     if (!seleniumParams.UseJS)
                     {
-                        p.SetPreference("javascript.enabled", false);
+                        ProfilesIni allProfiles = new ProfilesIni();
+                        FirefoxProfile profile = allProfiles.getProfile("NoJs");
+                        //p.SetPreference("javascript.enabled", false);
                     }
                     if (!seleniumParams.UseCookie)
                     {
-                        p.SetPreference("network.cookie.cookieBehavior", 2);
+                       // p.SetPreference("network.cookie.cookieBehavior", 2);
                     }
                     firefoxOptions.Profile = p;
 
@@ -92,7 +102,7 @@ namespace Clicker.src.Selenium
                 MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            
+            webDriver.Manage().Window.Maximize();
 
             webDriver.Navigate().GoToUrl(seleniumParams.FinderUrl);
             log.Add("Браузер запущен", webDriver);
@@ -119,6 +129,7 @@ namespace Clicker.src.Selenium
             log.Add(string.Format("Вписали в строку {0}", seleniumParams.Request), webDriver);
             findedStringTextBox.Submit();
             log.Add("Нажали кнопку поиска результатов", webDriver);
+            Thread.Sleep(3000);
         }
 
         public bool FindRefOnWebPage()
@@ -141,7 +152,7 @@ namespace Clicker.src.Selenium
             {
                 try
                 {
-                    nextPageButton = webDriver.FindElement(By.XPath("/html/body/div[7]/div/div[8]/div[1]/div/div[6]/span[1]/table/tbody/tr/td[12]/a/span[2]"));
+                    nextPageButton = webDriver.FindElement(By.XPath("//*[@id=\"pnnext\"]/span[2]"));
                     log.Add("Кнопка перехода на следующую страницу найдена", webDriver);
                 }
                 catch (Exception e)
@@ -191,64 +202,106 @@ namespace Clicker.src.Selenium
             }
         }
 
+        private System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> FindElements()
+        {
+            if (seleniumParams.FinderUrl.Contains("google"))
+                return webDriver.FindElements(By.PartialLinkText("http"));
+            else if (seleniumParams.FinderUrl.Contains("ya"))
+                return webDriver.FindElements(By.XPath(".//h2/a"));
+            else if (seleniumParams.FinderUrl.Contains("duckduckgo"))
+                return webDriver.FindElements(By.XPath(".//h2/a"));
+            return null;
+        }
+
         public void RunTask()
         {
-            if (seleniumParams.GotoPageAndWait)
+            do
             {
-                try
+                if (seleniumParams.GotoPageAndRunNext)
                 {
-                    rememberedHrefSite.Click();
-                    log.Add("Зашли на сайт", webDriver);
-                    Thread.Sleep(seleniumParams.TimeWork * 1000);
-                }
-                catch (Exception e)
-                {
-                    log.Add(string.Format("Не могу перейти по ссылке на страницу. {0}", e.Message), webDriver);
-                }
-            }
-            if (seleniumParams.GotoPageAndRun)
-            {
-                try
-                {
-                    rememberedHrefSite.Click();
-                    log.Add("Зашли на сайт", webDriver);
+                    var siteList = FindElements();
 
-                    Thread.Sleep(3000);
-
-                    DateTime startDate = DateTime.Now;
-
-                    //бродилка по внутренностям страницы
-                    while ((DateTime.Now - startDate).TotalSeconds <= seleniumParams.TimeWork)
+                    for (int i = 0; i < siteList.Count; i++)
                     {
-                        var hrefLinks = webDriver.FindElements(By.TagName("a"));
-                        Random rand = new Random();
-                        int randomId = rand.Next(0, hrefLinks.Count);
-                        hrefLinks[randomId].Click();
-                        log.Add(string.Format("Зашли на страницу {0}", hrefLinks[randomId].Text), webDriver);
-                        Thread.Sleep(1000);
-                        webDriver.Navigate().Back();
+                        var newSiteList = FindElements();
+                        bool isExcplititSite = false;
+                        foreach (string excplicitSite in seleniumParams.ExplicitDomain)
+                        {
+                            if (newSiteList[i].Text.Contains(excplicitSite))
+                            {
+                                isExcplititSite = true;
+                                break;
+                            }
+                        }
+                        if (!isExcplititSite)
+                        {
+                            newSiteList[i].Click();
+                            
+                            Random rand = new Random();
+                            Thread.Sleep(rand.Next(1000, 5000));
+
+                            List<string> tabs = new List<string>(webDriver.WindowHandles);
+                            if (tabs.Count > 1)
+                            {
+                                webDriver.SwitchTo().Window(tabs.Last()).Close();
+                                webDriver.SwitchTo().Window(tabs.First());
+                            }
+                            else
+                                webDriver.Navigate().Back();
+                        }
                     }
                 }
-                catch (Exception e)
+                if (seleniumParams.GotoPageAndRun)
                 {
-                    log.Add(string.Format("Что-то пошло не так. {0}", e.Message), webDriver);
+                    if (FindRefOnWebPage())
+                    {
+                        try
+                        {
+                            rememberedHrefSite.Click();
+                            log.Add("Зашли на сайт", webDriver);
+
+                            Thread.Sleep(3000);
+
+                            DateTime startDate = DateTime.Now;
+
+                            //бродилка по внутренностям страницы
+                            while ((DateTime.Now - startDate).TotalSeconds <= seleniumParams.TimeWork)
+                            {
+                                var hrefLinks = webDriver.FindElements(By.TagName("a"));
+                                Random rand = new Random();
+                                int randomId = rand.Next(0, hrefLinks.Count);
+                                hrefLinks[randomId].Click();
+                                log.Add(string.Format("Зашли на страницу {0}", hrefLinks[randomId].Text), webDriver);
+                                Thread.Sleep(1000);
+                                webDriver.Navigate().Back();
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            log.Add(string.Format("Что-то пошло не так. {0}", e.Message), webDriver);
+                        }
+                    }
                 }
-                
-            }
-            if (seleniumParams.GotoPageAndRunNext)
-            {
-                try
+                if (seleniumParams.GotoPageAndWait)
                 {
-                    rememberedHrefSite.Click();
-                    log.Add("Зашли на сайт", webDriver);
-                    Thread.Sleep(5000);
-                    //TODO сделать возврат в функцию поиска
+                    if (FindRefOnWebPage())
+                    {
+                        try
+                        {
+                            rememberedHrefSite.Click();
+                            log.Add("Зашли на сайт", webDriver);
+                            Thread.Sleep(seleniumParams.TimeWork * 1000);
+                        }
+                        catch (Exception e)
+                        {
+                            log.Add(string.Format("Что-то пошло не так. {0}", e.Message), webDriver);
+                        }
+                    }
                 }
-                catch (Exception e)
-                {
-                    log.Add(string.Format("Что-то пошло не так. {0}", e.Message), webDriver);
-                }
-            }
+
+                Thread.Sleep(10000);
+                FindNextPageButton().Click();
+            } while (FindNextPageButton() != null);
         }
 
         public void Exit()

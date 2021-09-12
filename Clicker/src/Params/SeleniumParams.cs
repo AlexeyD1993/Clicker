@@ -20,7 +20,7 @@ namespace Clicker.src.Params
 
         private List<string> explicitDomainList = new List<string>();
 
-        private bool gotoPageAndRunNext = false;
+        private bool gotoPageAndRunNext = true;
         private bool gotoPageAndWait = false;
         private bool gotoPageAndRun = false;
         private int timeWork = 0;
@@ -29,6 +29,7 @@ namespace Clicker.src.Params
         private IPEndPoint proxyPort = new IPEndPoint(IPAddress.Loopback, 80);
         private string proxyLogin = "";
         private string proxyPassword = "";
+        private string proxyType = "";
 
         private string userAgent;
 
@@ -59,6 +60,6 @@ namespace Clicker.src.Params
         public bool UseImageLog { get => useImageLog; set => useImageLog = value; }
         public bool UseVideoLog { get => useVideoLog; set => useVideoLog = value; }
         public bool GotoPageAndRunNext { get => gotoPageAndRunNext; set => gotoPageAndRunNext = value; }
-        
+        public string ProxyType { get => proxyType; set => proxyType = value; }
     }
 }
