@@ -669,7 +669,7 @@ namespace Clicker
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77778F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77778F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 73F));
             this.tableLayoutPanel14.Controls.Add(this.textBoxProxyUsername, 5, 0);
             this.tableLayoutPanel14.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel14.Controls.Add(this.label7, 2, 0);
@@ -691,7 +691,7 @@ namespace Clicker
             this.textBoxProxyUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProxyUsername.Location = new System.Drawing.Point(360, 3);
+            this.textBoxProxyUsername.Location = new System.Drawing.Point(359, 3);
             this.textBoxProxyUsername.Name = "textBoxProxyUsername";
             this.textBoxProxyUsername.Size = new System.Drawing.Size(95, 20);
             this.textBoxProxyUsername.TabIndex = 5;
@@ -721,7 +721,7 @@ namespace Clicker
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(293, 6);
+            this.label8.Location = new System.Drawing.Point(292, 6);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(61, 13);
             this.label8.TabIndex = 4;
@@ -732,7 +732,7 @@ namespace Clicker
             this.textBoxProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProxyPort.Location = new System.Drawing.Point(526, 3);
+            this.textBoxProxyPort.Location = new System.Drawing.Point(525, 3);
             this.textBoxProxyPort.Name = "textBoxProxyPort";
             this.textBoxProxyPort.PasswordChar = '●';
             this.textBoxProxyPort.Size = new System.Drawing.Size(95, 20);
@@ -743,7 +743,7 @@ namespace Clicker
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(464, 6);
+            this.label9.Location = new System.Drawing.Point(463, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 7;
@@ -779,7 +779,7 @@ namespace Clicker
             0,
             0});
             this.numericUpDownProxyPort.Name = "numericUpDownProxyPort";
-            this.numericUpDownProxyPort.Size = new System.Drawing.Size(55, 20);
+            this.numericUpDownProxyPort.Size = new System.Drawing.Size(54, 20);
             this.numericUpDownProxyPort.TabIndex = 9;
             this.numericUpDownProxyPort.Value = new decimal(new int[] {
             80,
@@ -798,9 +798,9 @@ namespace Clicker
             "Без proxy",
             "http",
             "socks"});
-            this.comboBoxProxyType.Location = new System.Drawing.Point(627, 3);
+            this.comboBoxProxyType.Location = new System.Drawing.Point(626, 3);
             this.comboBoxProxyType.Name = "comboBoxProxyType";
-            this.comboBoxProxyType.Size = new System.Drawing.Size(67, 21);
+            this.comboBoxProxyType.Size = new System.Drawing.Size(68, 21);
             this.comboBoxProxyType.TabIndex = 10;
             this.comboBoxProxyType.SelectedIndexChanged += new System.EventHandler(this.comboBoxProxyType_SelectedIndexChanged);
             // 

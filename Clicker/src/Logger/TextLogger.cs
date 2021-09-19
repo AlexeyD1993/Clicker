@@ -22,7 +22,14 @@ namespace Clicker.src.Logger
         public void Add(string message)
         {
             string dateTime = string.Format("{0}-{1}-{2}-{3}:{4}:{5}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            File.AppendAllText(logFileName, string.Format("{0}: {1}{2}", dateTime, message, Environment.NewLine));
+            try
+            {
+                File.AppendAllText(logFileName, string.Format("{0}: {1}{2}", dateTime, message, Environment.NewLine));
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }

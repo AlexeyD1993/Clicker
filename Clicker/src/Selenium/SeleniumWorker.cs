@@ -5,6 +5,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Service;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using Keys = OpenQA.Selenium.Keys;
 
 namespace Clicker.src.Selenium
 {
@@ -52,9 +54,15 @@ namespace Clicker.src.Selenium
                         }
                         else if(seleniumParams.ProxyType.Contains("socks"))
                         {
-                            p.SetPreference("network.proxy.socks", seleniumParams.ProxyPort.Address.ToString());
-                            p.SetPreference("network.proxy.socks_port", seleniumParams.ProxyPort.Port.ToString());
-
+                            p.SetPreference("network.proxy.type", 1);
+                            p.SetPreference("network.proxy.socks_version", 5);
+                            if (!string.IsNullOrWhiteSpace(seleniumParams.ProxyLogin))
+                                p.SetPreference("network.proxy.socks", string.Format("{0}:{1}@{2}", HttpUtility.UrlEncode(seleniumParams.ProxyLogin), HttpUtility.UrlEncode(seleniumParams.ProxyPassword),
+                                                                            seleniumParams.ProxyPort.Address.ToString()));
+                            else
+                                p.SetPreference("network.proxy.socks", seleniumParams.ProxyPort.Address.ToString());
+                            
+                            p.SetPreference("network.proxy.socks_port", seleniumParams.ProxyPort.Port);
                         }
                         //else if (seleniumParams.ProxyType.Contains("socks"))
                         //{
@@ -77,21 +85,50 @@ namespace Clicker.src.Selenium
                     firefoxOptions.Profile = p;
 
                     webDriver = new FirefoxDriver(Properties.Resources.FirefoxDriver, firefoxOptions);
+                    if (!seleniumParams.UseJS)
+                    {
+                        webDriver.Navigate().GoToUrl("about:config");
+                        Actions actions = new Actions(webDriver);  // ActionChains(webDriver);
+                        actions.SendKeys(Keys.Return);
+                        actions.SendKeys("javascript.enabled");
+                        actions.Perform();
+                        actions.SendKeys(Keys.Tab);
+                        actions.SendKeys(Keys.Tab);
+                        actions.SendKeys(Keys.Return);
+                        actions.SendKeys(Keys.F5);
+                        actions.Perform();
+                    }
                 }
                 if (seleniumParams.Browser == BrowserEnums.Browsers.chrome)
                 {
                     var chromeOptions = new ChromeOptions();
                     if (seleniumParams.ProxyIP != IPAddress.Loopback)
                     {
-                        var proxy = new Proxy();
-                        proxy.HttpProxy = HttpUtility.UrlEncode(seleniumParams.ProxyLogin) + ':' +
-                                          HttpUtility.UrlEncode(seleniumParams.ProxyPassword) + '@' +
-                                          seleniumParams.ProxyPort.ToString();
-                        chromeOptions.Proxy = proxy;
+                        if (seleniumParams.ProxyType.Contains("http"))
+                        {
+                            var proxy = new Proxy();
+                            proxy.HttpProxy = HttpUtility.UrlEncode(seleniumParams.ProxyLogin) + ':' +
+                                              HttpUtility.UrlEncode(seleniumParams.ProxyPassword) + '@' +
+                                              seleniumParams.ProxyPort.ToString();
+                            chromeOptions.Proxy = proxy;
+                        }
+                        else if (seleniumParams.ProxyType.Contains("socks"))
+                        {
+                            if (string.IsNullOrEmpty(seleniumParams.ProxyLogin))
+                                chromeOptions.AddArgument(string.Format("--proxy-server=socks5://{0}",
+                                                                    seleniumParams.ProxyPort.ToString()));
+                            else
+                                chromeOptions.AddArgument(string.Format("--proxy-server=socks5://{0}:{1}@{2}",
+                                                                        HttpUtility.UrlEncode(seleniumParams.ProxyLogin),
+                                                                        HttpUtility.UrlEncode(seleniumParams.ProxyPassword),
+                                                                        seleniumParams.ProxyPort.ToString()));
+                        }
                     }
                     if (!seleniumParams.UseJS)
                     {
-                        chromeOptions.AddArgument("--disable - javascript");
+                        chromeOptions.AddUserProfilePreference("profile.managed_default_content_settings.javascript", 2);
+                        chromeOptions.AddLocalStatePreference("profile.managed_default_content_settings.javascript", 2);
+                        //chromeOptions.AddArgument("--disable - javascript");
                     }
                     if (!seleniumParams.UseCookie)
                     {
@@ -104,7 +141,6 @@ namespace Clicker.src.Selenium
                 {
                     var chromeOptions = new ChromeOptions();
 
-                    //chromeOptions.BinaryLocation = ;
                     webDriver = new ChromeDriver(Properties.Resources.YandexDriver, chromeOptions);
 
                     //TODO YandexDriver!
@@ -204,6 +240,18 @@ namespace Clicker.src.Selenium
                     nextPageButton = webDriver.FindElement(By.XPath("//*[@id=\"pnnext\"]/span[2]"));
                     log.Add("Кнопка перехода на следующую страницу найдена", webDriver);
                 }
+                catch (NoSuchElementException ex)
+                {
+                    try
+                    {
+                        nextPageButton = webDriver.FindElement(By.PartialLinkText(">"));
+                        log.Add("Кнопка перехода на следующую страницу найдена", webDriver);
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
                 catch (Exception e)
                 {
                     log.Add(string.Format("Не смог найти кнопку перехода на следующую страницу {0}", e.Message), webDriver);
@@ -216,6 +264,18 @@ namespace Clicker.src.Selenium
                     nextPageButton = webDriver.FindElement(By.XPath("/html/body/div[3]/div[1]/div[2]/div[1]/div[1]/div[3]/div/a[5]"));
                     log.Add("Кнопка перехода на следующую страницу найдена", webDriver);
                 }
+                catch(NoSuchElementException ex)
+                {
+                    try
+                    {
+                        nextPageButton = webDriver.FindElement(By.PartialLinkText("дальше"));
+                        log.Add("Кнопка перехода на следующую страницу найдена", webDriver);
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
                 catch (Exception e)
                 {
                     log.Add(string.Format("Не смог найти кнопку перехода на следующую страницу {0}", e.Message), webDriver);
@@ -227,6 +287,17 @@ namespace Clicker.src.Selenium
                 {
                     nextPageButton = webDriver.FindElement(By.XPath("//*[@id=\"rld - 3\"]"));
                     log.Add("Кнопка перехода на следующую страницу найдена", webDriver);
+                }
+                catch (NoSuchElementException ex)
+                {
+                    try
+                    {
+                        nextPageButton = webDriver.FindElement(By.PartialLinkText("Next"));
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -285,7 +356,7 @@ namespace Clicker.src.Selenium
                         if (!isExcplititSite)
                         {
                             newSiteList[i].Click();
-                            
+
                             Random rand = new Random();
                             Thread.Sleep(rand.Next(1000, 5000));
 
@@ -348,7 +419,7 @@ namespace Clicker.src.Selenium
                     }
                 }
 
-                Thread.Sleep(10000);
+                Thread.Sleep(6000);
                 FindNextPageButton().Click();
             } while (FindNextPageButton() != null);
         }

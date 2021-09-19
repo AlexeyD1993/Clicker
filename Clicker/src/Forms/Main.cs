@@ -72,7 +72,10 @@ namespace Clicker
             for (int i = 0; i < seleniumParams.Count; i++)
             {
                 if (seleniumParams[i].ParamName == currParam.ParamName)
-                    seleniumParams[i] = currParam;
+                {
+                    seleniumParams.RemoveAt(i);
+                    seleniumParams.Insert(i, currParam);
+                }
             }
 
             //load selected item state
@@ -162,9 +165,14 @@ namespace Clicker
             //while (!seleniumWorker.FindRefOnWebPage())
             //    seleniumWorker.ClickNextPage();
 
-            seleniumWorker.RunTask();
-
-            seleniumWorker.Exit();
+            try
+            {
+                seleniumWorker.RunTask();
+            }
+            finally
+            {
+                seleniumWorker.Exit();
+            }
         }
 
         private bool CheckParamOnCorrect()
