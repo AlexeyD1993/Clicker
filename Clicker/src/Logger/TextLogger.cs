@@ -26,9 +26,8 @@ namespace Clicker.src.Logger
             {
                 File.AppendAllText(logFileName, string.Format("{0}: {1}{2}", dateTime, message, Environment.NewLine));
             }
-            catch (Exception ex)
+            catch
             {
-                
             }
         }
     }

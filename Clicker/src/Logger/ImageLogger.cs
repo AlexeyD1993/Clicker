@@ -23,10 +23,13 @@ namespace Clicker.src.Logger
 
         public void Add(IWebDriver webDriver, string paramName)
         {
-            string fileName = string.Format("{0}-{1}-{2}-{3}_{4}_{5}_{6}-{7}.jpg", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond, paramName);
-            Screenshot ss = ((ITakesScreenshot)webDriver).GetScreenshot();
-            ss.SaveAsFile(Path.Combine(imagePath, fileName), ScreenshotImageFormat.Jpeg);
-            
+            try
+            {
+                string fileName = string.Format("{0}-{1}-{2}-{3}_{4}_{5}_{6}-{7}.jpg", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond, paramName);
+                Screenshot ss = ((ITakesScreenshot)webDriver).GetScreenshot();
+                ss.SaveAsFile(Path.Combine(imagePath, fileName), ScreenshotImageFormat.Jpeg);
+            }
+            catch { }
         }
     }
 }

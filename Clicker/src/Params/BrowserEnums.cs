@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace Clicker.src.Params
 {
-    class BrowserEnums
+    public class BrowserEnums
     {
         public enum Browsers
         {
             firefox, 
             chrome, 
             yandex,
-            mobile
+            mobile,
+            safari,
+            edge,
+            other
         }
     }
 }

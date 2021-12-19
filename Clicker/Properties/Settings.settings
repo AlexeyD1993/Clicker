@@ -11,14 +11,65 @@
     <Setting Name="UseMobileBrowser" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="BrowserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Chrome</Value>
+    <Setting Name="BrowserName" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="PlatformName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Android</Value>
     </Setting>
     <Setting Name="BrowserVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">78.0</Value>
+    </Setting>
+    <Setting Name="timeToWaitNextPageMin" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="timeToWaitNextPageMax" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="timeToWaitRecaptcha" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="timeToWaitSiteAndElement" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="searcher" Type="System.String" Scope="User">
+      <Value Profile="(Default)">google</Value>
+    </Setting>
+    <Setting Name="googleEnd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.ru</Value>
+    </Setting>
+    <Setting Name="yandexEnd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.ru</Value>
+    </Setting>
+    <Setting Name="duckduckgoEnd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.ru</Value>
+    </Setting>
+    <Setting Name="gotoPageAndGoNext" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="gotoPageAndWait" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="gotoPageAndStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="useCookie" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="useJS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="saveFileLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="saveScreenLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="chromeBinaryPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Алексей\AppData\Local\Epic Privacy Browser\Application\epic.exe</Value>
+    </Setting>
+    <Setting Name="extensionPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Алексей\AppData\Local\Epic Privacy Browser\Application\91.0.4472.124\default_apps</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -61,10 +61,10 @@ namespace Clicker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Chrome")]
-        public string BrowserName {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int BrowserName {
             get {
-                return ((string)(this["BrowserName"]));
+                return ((int)(this["BrowserName"]));
             }
             set {
                 this["BrowserName"] = value;
@@ -92,6 +92,211 @@ namespace Clicker.Properties {
             }
             set {
                 this["BrowserVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int timeToWaitNextPageMin {
+            get {
+                return ((int)(this["timeToWaitNextPageMin"]));
+            }
+            set {
+                this["timeToWaitNextPageMin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int timeToWaitNextPageMax {
+            get {
+                return ((int)(this["timeToWaitNextPageMax"]));
+            }
+            set {
+                this["timeToWaitNextPageMax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        public int timeToWaitRecaptcha {
+            get {
+                return ((int)(this["timeToWaitRecaptcha"]));
+            }
+            set {
+                this["timeToWaitRecaptcha"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int timeToWaitSiteAndElement {
+            get {
+                return ((int)(this["timeToWaitSiteAndElement"]));
+            }
+            set {
+                this["timeToWaitSiteAndElement"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("google")]
+        public string searcher {
+            get {
+                return ((string)(this["searcher"]));
+            }
+            set {
+                this["searcher"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".ru")]
+        public string googleEnd {
+            get {
+                return ((string)(this["googleEnd"]));
+            }
+            set {
+                this["googleEnd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".ru")]
+        public string yandexEnd {
+            get {
+                return ((string)(this["yandexEnd"]));
+            }
+            set {
+                this["yandexEnd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".ru")]
+        public string duckduckgoEnd {
+            get {
+                return ((string)(this["duckduckgoEnd"]));
+            }
+            set {
+                this["duckduckgoEnd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gotoPageAndGoNext {
+            get {
+                return ((bool)(this["gotoPageAndGoNext"]));
+            }
+            set {
+                this["gotoPageAndGoNext"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gotoPageAndWait {
+            get {
+                return ((bool)(this["gotoPageAndWait"]));
+            }
+            set {
+                this["gotoPageAndWait"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gotoPageAndStart {
+            get {
+                return ((bool)(this["gotoPageAndStart"]));
+            }
+            set {
+                this["gotoPageAndStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useCookie {
+            get {
+                return ((bool)(this["useCookie"]));
+            }
+            set {
+                this["useCookie"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useJS {
+            get {
+                return ((bool)(this["useJS"]));
+            }
+            set {
+                this["useJS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool saveFileLog {
+            get {
+                return ((bool)(this["saveFileLog"]));
+            }
+            set {
+                this["saveFileLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool saveScreenLog {
+            get {
+                return ((bool)(this["saveScreenLog"]));
+            }
+            set {
+                this["saveScreenLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Алексей\\AppData\\Local\\Epic Privacy Browser\\Application\\epic.exe")]
+        public string chromeBinaryPath {
+            get {
+                return ((string)(this["chromeBinaryPath"]));
+            }
+            set {
+                this["chromeBinaryPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Алексей\\AppData\\Local\\Epic Privacy Browser\\Application\\91.0.4472.124\\def" +
+            "ault_apps")]
+        public string extensionPath {
+            get {
+                return ((string)(this["extensionPath"]));
+            }
+            set {
+                this["extensionPath"] = value;
             }
         }
     }

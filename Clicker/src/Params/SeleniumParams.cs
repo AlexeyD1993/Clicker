@@ -4,47 +4,111 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Clicker.src.Params
 {
-    class SeleniumParams
+    [XmlRoot("SeleniumParam")]
+    [Serializable]
+    public class SeleniumParams
     {
+        public SeleniumParams CloneParams(string paramName)
+        {
+            SeleniumParams clonedParams = new SeleniumParams();
+
+            clonedParams.paramName = paramName;
+            clonedParams.finderUrl = this.finderUrl;
+            clonedParams.findUrl = this.findUrl;
+            clonedParams.request = this.request;
+            clonedParams.browser = this.browser;
+            clonedParams.explicitDomainList = new List<string>(this.explicitDomainList);
+            clonedParams.gotoPageAndRun = this.gotoPageAndRun;
+            clonedParams.gotoPageAndRunNext = this.gotoPageAndRunNext;
+            clonedParams.gotoPageAndWait = this.gotoPageAndWait;
+            clonedParams.timeWork = this.timeWork;
+            clonedParams.timeWorkAuto = this.timeWorkAuto;
+            clonedParams.timeInSite = this.timeInSite;
+            clonedParams.timeInSiteAuto = this.timeInSiteAuto;
+            clonedParams.proxyIP.IPAddress = IPAddress.Parse(this.proxyIP.IPAddress.ToString());
+            clonedParams.proxyPort.IPEndPoint = new IPEndPoint(proxyIP.IPAddress, this.proxyPort.IPEndPoint.Port);
+            clonedParams.proxyLogin = this.proxyLogin;
+            clonedParams.proxyPassword = this.proxyPassword;
+            clonedParams.proxyType = this.proxyType;
+            clonedParams.userAgent = this.userAgent;
+            clonedParams.useJS = this.useJS;
+            clonedParams.useCookie = this.useCookie;
+            clonedParams.useTextLog = this.useTextLog;
+            clonedParams.useImageLog = this.useImageLog;
+            clonedParams.useVideoLog = this.useVideoLog;
+            clonedParams.timeStart = DateTime.Parse(this.timeStart.ToString());
+            clonedParams.timeToWaitSiteAndElement = this.timeToWaitSiteAndElement;
+            clonedParams.timeToWaitNextPageMin = this.timeToWaitNextPageMin;
+            clonedParams.timeToWaitNextPageMax = this.timeToWaitNextPageMax;
+            clonedParams.googleEnd = this.googleEnd;
+            clonedParams.yandexEnd = this.yandexEnd;
+            clonedParams.duckduckGoEnd = this.duckduckGoEnd;
+            clonedParams.timeToWaitRecaptcha = this.timeToWaitRecaptcha;
+            clonedParams.resX = this.resX;
+            clonedParams.resY = this.resY;
+            return clonedParams;
+        }
+
         private string paramName = "";
         
-        private string findUrl = "";
+        private List<string> findUrl = new List<string>();
         private string request = "";
 
-        private BrowserEnums.Browsers browser;
+        private BrowserEnums.Browsers browser = (BrowserEnums.Browsers)Properties.Settings.Default.BrowserName;//BrowserEnums.Browsers.other;
 
-        private string finderUrl = "";
+        private string finderUrl = "http:\\\\google";
 
         private List<string> explicitDomainList = new List<string>();
 
-        private bool gotoPageAndRunNext = true;
-        private bool gotoPageAndWait = false;
-        private bool gotoPageAndRun = false;
+        private bool gotoPageAndRunNext = Properties.Settings.Default.gotoPageAndGoNext;
+        private bool gotoPageAndWait = Properties.Settings.Default.gotoPageAndWait;
+        private bool gotoPageAndRun = Properties.Settings.Default.gotoPageAndStart;
         private int timeWork = 0;
+        private bool timeWorkAuto = true;
+        private int timeInSite = 0;
+        private bool timeInSiteAuto = true;
 
-        private IPAddress proxyIP = IPAddress.Loopback;
-        private IPEndPoint proxyPort = new IPEndPoint(IPAddress.Loopback, 80);
+        private ToSerializeIP proxyIP = new ToSerializeIP();
+
+        private ToSerializePort proxyPort = new ToSerializePort();//new IPEndPoint(IPAddress.Loopback, 80);
         private string proxyLogin = "";
         private string proxyPassword = "";
-        private string proxyType = "";
+        private string proxyType = "Без proxy";
 
         private string userAgent;
 
-        private bool useJS = true;
-        private bool useCookie = true;
+        private bool useJS = Properties.Settings.Default.useJS;
+        private bool useCookie = Properties.Settings.Default.useCookie;
 
-        private bool useTextLog = false;
-        private bool useImageLog = false;
+        private bool useTextLog = Properties.Settings.Default.saveFileLog;
+        private bool useImageLog = Properties.Settings.Default.saveScreenLog;
         private bool useVideoLog = false;
+
+        private DateTime timeStart = DateTime.Now;
+
+        private int timeToWaitSiteAndElement = Properties.Settings.Default.timeToWaitSiteAndElement;
+
+        private int timeToWaitNextPageMin = Properties.Settings.Default.timeToWaitNextPageMin;
+        private int timeToWaitNextPageMax = Properties.Settings.Default.timeToWaitNextPageMax;
+
+        private int timeToWaitRecaptcha = Properties.Settings.Default.timeToWaitRecaptcha;
+
+        private string googleEnd = Properties.Settings.Default.googleEnd;
+        private string yandexEnd = Properties.Settings.Default.yandexEnd;
+        private string duckduckGoEnd = Properties.Settings.Default.duckduckgoEnd;
+
+        private int resX = Properties.Settings.Default.BrowserSizeX;
+        private int resY = Properties.Settings.Default.BrowserSizeY;
 
         public BrowserEnums.Browsers Browser { get => browser; set => browser = value; }
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }
-        public IPAddress ProxyIP { get => proxyIP; set => proxyIP = value; }
-        public IPEndPoint ProxyPort { get => proxyPort; set => proxyPort = value; }
-        public string FindUrl { get => findUrl; set => findUrl = value; }
+        public ToSerializeIP ProxyIP { get => proxyIP; set => proxyIP = value; }
+        public ToSerializePort ProxyPort { get => proxyPort; set => proxyPort = value; }
+        public List<string> FindUrl { get => findUrl; set => findUrl = value; }
         public string Request { get => request; set => request = value; }
         public string ParamName { get => paramName; set => paramName = value; }
         public string ProxyLogin { get => proxyLogin; set => proxyLogin = value; }
@@ -61,5 +125,68 @@ namespace Clicker.src.Params
         public bool UseVideoLog { get => useVideoLog; set => useVideoLog = value; }
         public bool GotoPageAndRunNext { get => gotoPageAndRunNext; set => gotoPageAndRunNext = value; }
         public string ProxyType { get => proxyType; set => proxyType = value; }
+        public int TimeInSite { get => timeInSite; set => timeInSite = value; }
+        public DateTime TimeStart { get => timeStart; set => timeStart = value; }
+        public int TimeToWaitSiteAndElement { get => timeToWaitSiteAndElement; set => timeToWaitSiteAndElement = value; }
+        public bool TimeWorkAuto { get => timeWorkAuto; set => timeWorkAuto = value; }
+        public bool TimeInSiteAuto { get => timeInSiteAuto; set => timeInSiteAuto = value; }
+        public int TimeToWaitNextPageMin { get => timeToWaitNextPageMin; set => timeToWaitNextPageMin = value; }
+        public int TimeToWaitNextPageMax { get => timeToWaitNextPageMax; set => timeToWaitNextPageMax = value; }
+        public int TimeToWaitRecaptcha { get => timeToWaitRecaptcha; set => timeToWaitRecaptcha = value; }
+        public string GoogleEnd { get => googleEnd; set => googleEnd = value; }
+        public string YandexEnd { get => yandexEnd; set => yandexEnd = value; }
+        public string DuckduckGoEnd { get => duckduckGoEnd; set => duckduckGoEnd = value; }
+        public int ResX { get => resX; set => resX = value; }
+        public int ResY { get => resY; set => resY = value; }
+
+        public SeleniumParams()
+        {
+            proxyIP.IPAddress = IPAddress.Loopback;
+            proxyPort.IPEndPoint = new IPEndPoint(IPAddress.Loopback, 80);
+        }
+    }
+
+    public class ToSerializeIP
+    {
+        [XmlElement(ElementName = "IPAddress")]
+        public string IPAddressAsString
+        {
+            get { return IPAddress != null ? IPAddress.ToString() : null; }
+            set
+            {
+                IPAddress a;
+                if (value != null && IPAddress.TryParse(value, out a))
+                    IPAddress = a;
+                else
+                    IPAddress = null;
+            }
+        }
+        [XmlIgnore]
+        public IPAddress IPAddress { get; set; }
+    }
+
+    public class ToSerializePort
+    {
+        [XmlElement(ElementName = "IPEndPoint")]
+        public string IPEndPointAsString
+        {
+            get { return IPEndPoint != null ? IPEndPoint.ToString() : null; }
+            set
+            {
+                if (value != null)
+                {
+                    string[] ep = value.Split(':');
+                    IPAddress ab = null;
+                    IPAddress.TryParse(ep[0], out ab);
+                    IPEndPoint = new IPEndPoint(ab.Address, Int32.Parse(ep[1]));
+                    //IPEndPoint.Address = ab;
+                    //IPEndPoint.Port = Int32.Parse(ep[1]);
+                }
+                else
+                    IPEndPoint = null;
+            }
+        }
+        [XmlIgnore]
+        public IPEndPoint IPEndPoint { get; set; }
     }
 }
