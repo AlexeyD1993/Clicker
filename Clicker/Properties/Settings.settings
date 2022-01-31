@@ -14,12 +14,6 @@
     <Setting Name="BrowserName" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PlatformName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Android</Value>
-    </Setting>
-    <Setting Name="BrowserVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">78.0</Value>
-    </Setting>
     <Setting Name="timeToWaitNextPageMin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
@@ -70,6 +64,9 @@
     </Setting>
     <Setting Name="extensionPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\Алексей\AppData\Local\Epic Privacy Browser\Application\91.0.4472.124\default_apps</Value>
+    </Setting>
+    <Setting Name="useAllSite" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

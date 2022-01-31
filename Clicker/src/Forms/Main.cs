@@ -1,26 +1,25 @@
-﻿using Clicker.src.Params;
+﻿using Clicker.src.Logger;
+using Clicker.src.Params;
 using Clicker.src.Selenium;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace Clicker
+namespace Clicker.src.Forms
 {
     public partial class Form1 : Form
     {
         private Random rand = new Random();
         [XmlArray("SeleniumParams"), XmlArrayItem(typeof(SeleniumParams), ElementName = "SeleniumParam")]
         private List<SeleniumParams> seleniumParams = new List<SeleniumParams>();
+        private List<string> loadedCrxFiles = new List<string>();
 
         private SeleniumParams currParam;
         private string[] proxyParams = null;
@@ -28,8 +27,11 @@ namespace Clicker
 
         private string[] mobileResolutions = null;
         private string[] desktopResolutions = null;
+        private string[] explicitDomains = null;
+        private string[] sites = null;
 
         private bool userChanged = false;
+        private TextLogger log = new TextLogger("error.log");
 
         private int counter;
 
@@ -38,8 +40,6 @@ namespace Clicker
             userChanged = false;
             InitializeComponent();
             counter = 0;
-
-            buttonAddWork_Click(null, null);
             userChanged = true;
         }
 
@@ -57,7 +57,7 @@ namespace Clicker
             catch
             { }
 
-            if (prevValue == 80)
+            if (prevValue == 100)
             {
                 MessageBox.Show(this, "Закончился срок пробной версии.\nПожалуйста, оплатите программу по реквизитам: 5469 3700 1167 2938", "НЕОБХОДИМО ОПЛАТИТЬ ПРОГРАММУ!");
                 Registry.SetValue(keyName, "Count", ++prevValue, RegistryValueKind.DWord);
@@ -75,6 +75,7 @@ namespace Clicker
             foreach (SeleniumParams selenParam in seleniumParams)
             {
                 dataGridViewWorks.Rows.Add(selenParam.ParamName);
+                ColorCell(selenParam);
             }
             userChanged = true;
         }
@@ -194,13 +195,16 @@ namespace Clicker
             return param;
         }
 
-        private void buttonAddWork_Click(object sender, EventArgs e, string request = null)
+        private void AddSeleniumWork(string request = null, bool isClone = false)
         {
             SeleniumParams param = new SeleniumParams();
             param.ParamName = GetNewParamName();
             userChanged = false;
 
-            if (request != "")
+            if (isClone)
+                param = seleniumParams[0].CloneParams(param.ParamName);
+
+            if (request != null)
                 param.Request = request;
 
             if (proxyParams != null)
@@ -231,10 +235,26 @@ namespace Clicker
             if (currParam == null)
                 currParam = param;
 
+            if (explicitDomains != null)
+            {
+                currParam.ExplicitDomain = explicitDomains.ToList();
+            }
+
+            if (sites != null)
+            {
+                currParam.FindUrl = sites.ToList();
+            }
+
             seleniumParams.Add(param);
 
-            UpdateDataGridParam();
+            GenerateTimeToWait();
+            GenerateTimeToWork();
 
+            userChanged = true;
+        }
+
+        private void SelectFirstWork(object sender)
+        {
             if (dataGridViewWorks.RowCount != 0)
             {
                 dataGridViewWorks.ClearSelection();
@@ -242,11 +262,15 @@ namespace Clicker
                 dataGridViewWorks.Rows[dataGridViewWorks.RowCount - 1].Cells["WorkName"].Selected = true;
                 dataGridViewWorks_CellClick(sender, new DataGridViewCellEventArgs(0, dataGridViewWorks.RowCount));
             }
+        }
 
-            GenerateTimeToWait();
-            GenerateTimeToWork();
+        private void buttonAddWork_Click(object sender, EventArgs e)
+        {
+            AddSeleniumWork();
 
-            userChanged = true;
+            UpdateDataGridParam();
+
+            SelectFirstWork(sender);
         }
 
         private void SelectFirstZadanRow()
@@ -285,6 +309,7 @@ namespace Clicker
 
         private void UpdateViewSeleniumParamState()
         {
+            userChanged = false;
             //view state in page
             textBoxRequest.Text = currParam.Request;
             UpdateFindUrlsDataGrid();
@@ -386,6 +411,12 @@ namespace Clicker
 
             numericUpDownResX.Value = currParam.ResX;
             numericUpDownResY.Value = currParam.ResY;
+
+            checkBox1.Checked = currParam.IsAll;
+            numericUpDownMinBypass.Value = currParam.MinBypass;
+            numericUpDownMaxBypass.Value = currParam.MaxByPass;
+
+            userChanged = true;
         }
 
         private void dataGridViewWorks_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -434,19 +465,33 @@ namespace Clicker
             //await Task.Delay((int)(b - DateTime.Now).TotalMilliseconds);
         }
 
-        private void RunTask(SeleniumParams param)
+        private void RunTask(ref SeleniumParams param)
         {
             WaitForTime(param);
 
-            SeleniumWorker seleniumWorker = new SeleniumWorker(param);
-            seleniumWorker.RequestFindResult();
+            SeleniumWorker seleniumWorker = null;
             try
             {
+                seleniumWorker = new SeleniumWorker(ref param, loadedCrxFiles);
+                seleniumWorker.RequestFindResult();
                 seleniumWorker.RunTask();
+            }
+            catch (Exception ex) 
+            {
+                log.Add(ex.Message);
+                param.IsEnd = SeleniumStatusWork.Status.Error;
             }
             finally
             {
-                seleniumWorker.Exit();
+                try
+                {
+                    ColorCell(param);
+                    seleniumWorker.Exit();
+                }
+                catch (Exception ex)
+                {
+                    log.Add(ex.Message);
+                }
             }
         }
 
@@ -466,17 +511,68 @@ namespace Clicker
             return true;
         }
 
-        private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ColorCell(SeleniumParams param)
         {
-            if (CheckParamOnCorrect())
+            for(int i = 0; i < dataGridViewWorks.Rows.Count; i++)
             {
-
-                foreach (SeleniumParams param in seleniumParams)
+                if (param.ParamName == dataGridViewWorks.Rows[i].Cells["WorkName"].Value.ToString())
                 {
-                    RunTask(param);
+                    if (param.IsEnd == SeleniumStatusWork.Status.Done)
+                    {
+                        dataGridViewWorks.Rows[i].Cells["WorkName"].Style.BackColor = Color.Green;
+                        dataGridViewWorks.Rows[i].Cells["WorkName"].Style.SelectionBackColor = Color.Green;
+                    }
+                    else if (param.IsEnd == SeleniumStatusWork.Status.Error)
+                    {
+                        dataGridViewWorks.Rows[i].Cells["WorkName"].Style.BackColor = Color.IndianRed;
+                        dataGridViewWorks.Rows[i].Cells["WorkName"].Style.SelectionBackColor = Color.IndianRed;
+                    }
+                    else
+                    {
+                        dataGridViewWorks.Rows[i].Cells["WorkName"].Style.BackColor = Color.Gray;
+                        dataGridViewWorks.Rows[i].Cells["WorkName"].Style.SelectionBackColor = Color.Gray;
+                    }
                 }
 
-                MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void WaitForTime(double waitMillisecond)
+        {
+            var spin = new SpinWait();
+            DateTime b = DateTime.Now;
+            while (true)
+            {
+                if ((DateTime.Now - b).TotalMilliseconds >= waitMillisecond)
+                    break;
+                spin.SpinOnce();
+            }
+        }
+
+        private void запуститьЗаданиеПоочередноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DateTime timeToWait = DateTime.Parse("00:00:00");
+
+            TimeRequest timeRequest = new TimeRequest();
+            DialogResult dr = timeRequest.ShowDialog();
+            if (dr == DialogResult.OK || dr == DialogResult.Yes)
+            {
+                if (dr == DialogResult.Yes)
+                    timeToWait = timeRequest.dateTimePicker1.Value;
+                if (CheckParamOnCorrect())
+                {
+                    for (int i = 0; i < seleniumParams.Count; i++)
+                    {
+                        SeleniumParams param = seleniumParams[i];
+                        if (param.IsEnd != SeleniumStatusWork.Status.Done)
+                        {
+                            RunTask(ref param);
+                        }
+                        WaitForTime((new TimeSpan(timeToWait.Hour, timeToWait.Minute, timeToWait.Second)).TotalMilliseconds);
+                    }
+
+                    MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -485,22 +581,31 @@ namespace Clicker
             if (CheckParamOnCorrect())
             {
                 List<Task> taskList = new List<Task>();
-                foreach (SeleniumParams param in seleniumParams)
+                for (int i = 0; i < seleniumParams.Count; i++)
+                //foreach (SeleniumParams param in seleniumParams)
                 {
-                    Action<object> action = (object obj) =>
+                    SeleniumParams param = seleniumParams[i];
+                    if (param.IsEnd != SeleniumStatusWork.Status.Done)
                     {
-                        RunTask(param);
-                    };
+                        Action<object> action = (object obj) =>
+                        {
+                            RunTask(ref param);
+                        };
 
-                    taskList.Add(new Task(action, param.ParamName));
-                    taskList.Last().Start();
+                        taskList.Add(new Task(action, param.ParamName));
+                        taskList.Last().Start();
+
+                    }
                 }
 
+                Thread.Sleep(5000);
 
                 bool allEnd = false;
 
                 while (!allEnd)
                 {
+                    if (taskList.Count == 0)
+                        allEnd = true;
                     for (int i = 0; i < taskList.Count; i++)
                     {
                         if (taskList[i].Status == TaskStatus.Running)
@@ -510,6 +615,9 @@ namespace Clicker
                 }
 
                 MessageBox.Show(this, "Все задания выполнены!", "Выполнено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                //TODO Update all status
+                UpdateDataGridParam();
             }
         }
 
@@ -579,10 +687,11 @@ namespace Clicker
                 if (radioButtonGoogle.Checked)
                 {
                     currParam.FinderUrl = "http:\\\\google";
-                    textBoxGoogleEnd.Enabled = true;
-                    textBoxYandexEnd.Enabled = false;
-                    textBoxDuckduckGoEnd.Enabled = false;
+                    
                 }
+            textBoxGoogleEnd.Enabled = true;
+            textBoxYandexEnd.Enabled = false;
+            textBoxDuckduckGoEnd.Enabled = false;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -591,10 +700,11 @@ namespace Clicker
                 if (radioButtonYanex.Checked)
                 {
                     currParam.FinderUrl = "http:\\\\yandex";
-                    textBoxGoogleEnd.Enabled = false;
-                    textBoxYandexEnd.Enabled = true;
-                    textBoxDuckduckGoEnd.Enabled = false;
                 }
+
+            textBoxGoogleEnd.Enabled = false;
+            textBoxYandexEnd.Enabled = true;
+            textBoxDuckduckGoEnd.Enabled = false;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -603,10 +713,11 @@ namespace Clicker
                 if (radioButtonDuckDuckGo.Checked)
                 {
                     currParam.FinderUrl = "http:\\\\duckduckgo";
-                    textBoxGoogleEnd.Enabled = false;
-                    textBoxYandexEnd.Enabled = false;
-                    textBoxDuckduckGoEnd.Enabled = true;
                 }
+
+            textBoxGoogleEnd.Enabled = false;
+            textBoxYandexEnd.Enabled = false;
+            textBoxDuckduckGoEnd.Enabled = true;
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
@@ -755,12 +866,42 @@ namespace Clicker
             }
         }
 
+        private List<string> ReadCrxFiles()
+        {
+            List<string> result = new List<string>();
+            if (openFileDialogCrx.ShowDialog() == DialogResult.OK)
+            {
+                result = openFileDialogCrx.FileNames.ToList();
+            }
+            return result;
+        }
+
+        private void TryReadExplicitDomains()
+        {
+            if (File.Exists("explicit_domain.txt"))
+            {
+                explicitDomains = File.ReadAllLines("explicit_domain.txt");
+            }
+        }
+
+        private void TryReadFindedSites()
+        {
+            if (File.Exists("sites.txt"))
+            {
+                sites = File.ReadAllLines("sites.txt");
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             userChanged = false;
 
+            this.Text = string.Format("{0}\\{1}", Directory.GetCurrentDirectory(), this.Text);
+
             TryReadUserAgentTxt("Useragent.txt");
             TryReadResolutions();
+            TryReadExplicitDomains();
+            TryReadFindedSites();
 
             if (MessageBox.Show(this, "Считать предыдущие задания из файла?\n", "Считать?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -778,7 +919,7 @@ namespace Clicker
                 }
             }
 
-            if (seleniumParams != null)
+            if (seleniumParams != null && seleniumParams.Count != 0)
             {
                 //TODO update dataGrid
                 UpdateDataGridParam();
@@ -790,7 +931,18 @@ namespace Clicker
                     comboBoxProxyType.Text = "Без proxy";
             }
 
+            if (MessageBox.Show("Загрузить расширения браузера?", "Выбор расширений", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.extensionPath))
+                    if (Directory.Exists(Properties.Settings.Default.extensionPath))
+                        openFileDialogCrx.InitialDirectory = Properties.Settings.Default.extensionPath;
+                loadedCrxFiles = ReadCrxFiles();
+            }
+
+
             WriteInRegistry();
+            if (seleniumParams.Count == 0)
+                buttonAddWork_Click(null, null);
             userChanged = true;
         }
 
@@ -872,18 +1024,24 @@ namespace Clicker
 
         private void GenerateTimeToWait()
         {
+            bool prevUserChanged = userChanged;
+            userChanged = true;
             if (checkBoxTimeToWait.Checked)
             {
                 maskedTextBox1.Text = rand.Next(300, 1200).ToString();
             }
+            userChanged = prevUserChanged;
         }
 
         private void GenerateTimeToWork()
         {
+            bool prevUserChanged = userChanged;
+            userChanged = true;
             if (checkBoxTimeToWait.Checked)
             {
                 maskedTextBox4.Text = rand.Next(1200, 18000).ToString();
             }
+            userChanged = prevUserChanged;
         }
 
         private void checkBoxTimeToWait_CheckedChanged(object sender, EventArgs e)
@@ -1324,17 +1482,130 @@ namespace Clicker
                 UpdateFindUrlsDataGrid();
             }
         }
-
-        private void созданиеЗаданийToolStripMenuItem_Click(object sender, EventArgs e)
+        private void созданиеЗаданийToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                bool isFirstZadan = true;
                 string[] zadans = File.ReadAllLines(openFileDialog1.FileName);
                 foreach (string zadan in zadans)
                 {
-                    buttonAddWork_Click(sender, e, zadan);
+                    if (isFirstZadan)
+                    {
+                        currParam.Request = zadan;
+                        isFirstZadan = false;
+                    }
+                    else
+                        AddSeleniumWork(zadan, true);
+                }
+                UpdateDataGridParam();
+                UpdateViewSeleniumParamState();
+            }
+        }
+
+        private void сгенерироватьВремяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimeGenerator timeGenerator = new TimeGenerator(seleniumParams);
+            if (timeGenerator.ShowDialog() == DialogResult.Yes)
+            {
+                seleniumParams = timeGenerator.seleniumParams;
+                if (seleniumParams.Count != 0)
+                    currParam = seleniumParams[0];
+                UpdateViewSeleniumParamState();
+            }
+        }
+
+        private List<SeleniumParams> CloneParams(List<SeleniumParams> seleniumParams, string finder, string finderEnd)
+        {
+            List<SeleniumParams> result = new List<SeleniumParams>();
+            foreach (SeleniumParams seleniumParam in seleniumParams)
+            {
+                SeleniumParams tmp = seleniumParam.CloneParams(GetNewParamName());
+                tmp.FinderUrl = finder;
+                tmp.GoogleEnd = finderEnd;
+                tmp.YandexEnd = finderEnd;
+                tmp.DuckduckGoEnd = finderEnd;
+                result.Add(tmp);
+            }
+            return result;
+        }
+
+        private List<SeleniumParams> ConcatParam(List<SeleniumParams> googleParam, List<SeleniumParams> yandexParam, List<SeleniumParams> duckDuckGoParam)
+        {
+            List<SeleniumParams> result = new List<SeleniumParams>();
+            foreach (SeleniumParams param in googleParam)
+                result.Add(param.CloneParams(param.ParamName));
+
+            foreach (SeleniumParams param in yandexParam)
+                result.Add(param.CloneParams(param.ParamName));
+
+            foreach (SeleniumParams param in duckDuckGoParam)
+                result.Add(param.CloneParams(param.ParamName));
+
+            return result;
+        }
+
+        private void продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<SeleniumParams> paramsYandex = CloneParams(seleniumParams, "http:\\\\yandex", Properties.Settings.Default.yandexEnd);
+            List<SeleniumParams> paramsDuckDuckGo = CloneParams(seleniumParams, "http:\\\\duckduckgo", Properties.Settings.Default.duckduckgoEnd);
+
+            seleniumParams = ConcatParam(seleniumParams, paramsYandex, paramsDuckDuckGo);
+            UpdateDataGridParam();
+            UpdateViewSeleniumParamState();
+        }
+
+        private void numericUpDown1_ValueChanged_3(object sender, EventArgs e)
+        {
+            if (userChanged)
+                currParam.MinBypass = (int)numericUpDownMinBypass.Value;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (userChanged)
+            {
+                currParam.IsAll = checkBox1.Checked;
+                if (checkBox1.Checked)
+                {
+                    numericUpDownMinBypass.Enabled = false;
+                    numericUpDownMaxBypass.Enabled = false;
+                }
+                else
+                {
+                    numericUpDownMinBypass.Enabled = true;
+                    numericUpDownMaxBypass.Enabled = true;
                 }
             }
+        }
+
+        private void numericUpDownMaxBypass_ValueChanged(object sender, EventArgs e)
+        {
+            if (userChanged)
+                currParam.MaxByPass = (int)numericUpDownMaxBypass.Value;
+        }
+
+        private void dataGridViewSearchedSites_CellEndEdit_1(object sender, DataGridViewCellEventArgs e)
+        {
+            userChanged = false;
+            currParam.FindUrl.Clear();
+            for (int i =0; i < dataGridViewSearchedSites.Rows.Count - 1; i++)
+            {
+                DataGridViewRow dgViewRow = dataGridViewSearchedSites.Rows[i];
+                currParam.FindUrl.Add(dgViewRow.Cells["site"].Value.ToString().Trim());
+            }
+            userChanged = true;
+        }
+
+        private void сбросСтатусаЗаданийToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < seleniumParams.Count; i++)
+            {
+                seleniumParams[i].IsEnd = SeleniumStatusWork.Status.NotRunning;
+            }
+            UpdateDataGridParam();
+
+            UpdateViewSeleniumParamState();
         }
     }
 }

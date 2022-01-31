@@ -1,5 +1,5 @@
 ﻿
-namespace Clicker
+namespace Clicker.src.Forms
 {
     partial class Form1
     {
@@ -61,11 +61,21 @@ namespace Clicker
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxRequest = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridViewSearchedSites = new System.Windows.Forms.DataGridView();
+            this.site = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonLoadSearchedSite = new System.Windows.Forms.Button();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewExcplicitDomain = new System.Windows.Forms.DataGridView();
             this.domain = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel25 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxExplicitDomain = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel26 = new System.Windows.Forms.TableLayoutPanel();
+            this.numericUpDownMaxBypass = new System.Windows.Forms.NumericUpDown();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.numericUpDownMinBypass = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxGotoPageAndWait = new System.Windows.Forms.CheckBox();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
@@ -136,13 +146,15 @@ namespace Clicker
             this.saveZadanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveDefaultValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.генерацияЗаданийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.созданиеЗаданийToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.сгенерироватьВремяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сбросСтатусаЗаданийToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogZadan = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogZadan = new System.Windows.Forms.OpenFileDialog();
-            this.dataGridViewSearchedSites = new System.Windows.Forms.DataGridView();
-            this.site = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonLoadSearchedSite = new System.Windows.Forms.Button();
-            this.созданиеЗаданийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialogCrx = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -154,8 +166,13 @@ namespace Clicker
             this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedSites)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExcplicitDomain)).BeginInit();
+            this.tableLayoutPanel25.SuspendLayout();
+            this.tableLayoutPanel26.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBypass)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinBypass)).BeginInit();
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
@@ -177,7 +194,6 @@ namespace Clicker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownResX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownResY)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedSites)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -265,7 +281,7 @@ namespace Clicker
             this.buttonAddWork.TabIndex = 0;
             this.buttonAddWork.Text = "Добавить задание";
             this.buttonAddWork.UseVisualStyleBackColor = true;
-            this.buttonAddWork.Click += new System.EventHandler((sender, e) => this.buttonAddWork_Click(sender, e, ""));
+            this.buttonAddWork.Click += new System.EventHandler(this.buttonAddWork_Click);
             // 
             // buttonDeleteWork
             // 
@@ -348,9 +364,10 @@ namespace Clicker
             this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel8.ColumnCount = 2;
+            this.tableLayoutPanel8.ColumnCount = 3;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel10, 1, 0);
             this.tableLayoutPanel8.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 283);
@@ -374,30 +391,32 @@ namespace Clicker
             this.tableLayoutPanel10.Controls.Add(this.radioButtonYanex, 0, 1);
             this.tableLayoutPanel10.Controls.Add(this.radioButtonDuckDuckGo, 0, 2);
             this.tableLayoutPanel10.Controls.Add(this.textBoxGoogleEnd, 1, 0);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(536, 3);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(526, 3);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 3;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(528, 121);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(517, 121);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
             // textBoxDuckduckGoEnd
             // 
             this.textBoxDuckduckGoEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDuckduckGoEnd.Location = new System.Drawing.Point(267, 90);
+            this.textBoxDuckduckGoEnd.Enabled = false;
+            this.textBoxDuckduckGoEnd.Location = new System.Drawing.Point(261, 90);
             this.textBoxDuckduckGoEnd.Name = "textBoxDuckduckGoEnd";
-            this.textBoxDuckduckGoEnd.Size = new System.Drawing.Size(258, 20);
+            this.textBoxDuckduckGoEnd.Size = new System.Drawing.Size(253, 20);
             this.textBoxDuckduckGoEnd.TabIndex = 5;
             this.textBoxDuckduckGoEnd.TextChanged += new System.EventHandler(this.textBoxDuckDuckGoEnd_TextChanged);
             // 
             // textBoxYandexEnd
             // 
             this.textBoxYandexEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxYandexEnd.Location = new System.Drawing.Point(267, 50);
+            this.textBoxYandexEnd.Enabled = false;
+            this.textBoxYandexEnd.Location = new System.Drawing.Point(261, 50);
             this.textBoxYandexEnd.Name = "textBoxYandexEnd";
-            this.textBoxYandexEnd.Size = new System.Drawing.Size(258, 20);
+            this.textBoxYandexEnd.Size = new System.Drawing.Size(253, 20);
             this.textBoxYandexEnd.TabIndex = 4;
             this.textBoxYandexEnd.TextChanged += new System.EventHandler(this.textBoxYandexEnd_TextChanged);
             // 
@@ -405,7 +424,7 @@ namespace Clicker
             // 
             this.radioButtonGoogle.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radioButtonGoogle.AutoSize = true;
-            this.radioButtonGoogle.Location = new System.Drawing.Point(204, 11);
+            this.radioButtonGoogle.Location = new System.Drawing.Point(198, 11);
             this.radioButtonGoogle.Name = "radioButtonGoogle";
             this.radioButtonGoogle.Size = new System.Drawing.Size(57, 17);
             this.radioButtonGoogle.TabIndex = 0;
@@ -418,7 +437,7 @@ namespace Clicker
             // 
             this.radioButtonYanex.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radioButtonYanex.AutoSize = true;
-            this.radioButtonYanex.Location = new System.Drawing.Point(202, 51);
+            this.radioButtonYanex.Location = new System.Drawing.Point(196, 51);
             this.radioButtonYanex.Name = "radioButtonYanex";
             this.radioButtonYanex.Size = new System.Drawing.Size(59, 17);
             this.radioButtonYanex.TabIndex = 1;
@@ -431,7 +450,7 @@ namespace Clicker
             // 
             this.radioButtonDuckDuckGo.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radioButtonDuckDuckGo.AutoSize = true;
-            this.radioButtonDuckDuckGo.Location = new System.Drawing.Point(176, 92);
+            this.radioButtonDuckDuckGo.Location = new System.Drawing.Point(170, 92);
             this.radioButtonDuckDuckGo.Name = "radioButtonDuckDuckGo";
             this.radioButtonDuckDuckGo.Size = new System.Drawing.Size(85, 17);
             this.radioButtonDuckDuckGo.TabIndex = 2;
@@ -443,9 +462,10 @@ namespace Clicker
             // textBoxGoogleEnd
             // 
             this.textBoxGoogleEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxGoogleEnd.Location = new System.Drawing.Point(267, 10);
+            this.textBoxGoogleEnd.Enabled = false;
+            this.textBoxGoogleEnd.Location = new System.Drawing.Point(261, 10);
             this.textBoxGoogleEnd.Name = "textBoxGoogleEnd";
-            this.textBoxGoogleEnd.Size = new System.Drawing.Size(258, 20);
+            this.textBoxGoogleEnd.Size = new System.Drawing.Size(253, 20);
             this.textBoxGoogleEnd.TabIndex = 3;
             this.textBoxGoogleEnd.TextChanged += new System.EventHandler(this.textBoxGoogleEnd_TextChanged);
             // 
@@ -453,7 +473,7 @@ namespace Clicker
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(464, 57);
+            this.label2.Location = new System.Drawing.Point(454, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 0;
@@ -654,6 +674,24 @@ namespace Clicker
             this.tableLayoutPanel6.Size = new System.Drawing.Size(1067, 132);
             this.tableLayoutPanel6.TabIndex = 1;
             // 
+            // dataGridViewSearchedSites
+            // 
+            this.dataGridViewSearchedSites.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSearchedSites.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.site});
+            this.dataGridViewSearchedSites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewSearchedSites.Location = new System.Drawing.Point(596, 3);
+            this.dataGridViewSearchedSites.Name = "dataGridViewSearchedSites";
+            this.dataGridViewSearchedSites.Size = new System.Drawing.Size(468, 126);
+            this.dataGridViewSearchedSites.TabIndex = 2;
+            this.dataGridViewSearchedSites.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSearchedSites_CellEndEdit_1);
+            // 
+            // site
+            // 
+            this.site.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.site.HeaderText = "Наименование сайта";
+            this.site.Name = "site";
+            // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -664,6 +702,17 @@ namespace Clicker
             this.label3.TabIndex = 0;
             this.label3.Text = "Искомый сайт (домен):";
             // 
+            // buttonLoadSearchedSite
+            // 
+            this.buttonLoadSearchedSite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLoadSearchedSite.Location = new System.Drawing.Point(3, 41);
+            this.buttonLoadSearchedSite.Name = "buttonLoadSearchedSite";
+            this.buttonLoadSearchedSite.Size = new System.Drawing.Size(114, 50);
+            this.buttonLoadSearchedSite.TabIndex = 3;
+            this.buttonLoadSearchedSite.Text = "Загрузить искомые сайты";
+            this.buttonLoadSearchedSite.UseVisualStyleBackColor = true;
+            this.buttonLoadSearchedSite.Click += new System.EventHandler(this.buttonLoadSearchedSite_Click);
+            // 
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -671,14 +720,13 @@ namespace Clicker
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel9.Controls.Add(this.dataGridViewExcplicitDomain, 0, 1);
-            this.tableLayoutPanel9.Controls.Add(this.checkBoxExplicitDomain, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.tableLayoutPanel25, 0, 0);
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 416);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 2;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(1067, 127);
             this.tableLayoutPanel9.TabIndex = 4;
             // 
@@ -688,11 +736,11 @@ namespace Clicker
             this.dataGridViewExcplicitDomain.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.domain});
             this.dataGridViewExcplicitDomain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewExcplicitDomain.Location = new System.Drawing.Point(3, 28);
+            this.dataGridViewExcplicitDomain.Location = new System.Drawing.Point(3, 38);
             this.dataGridViewExcplicitDomain.Name = "dataGridViewExcplicitDomain";
             this.dataGridViewExcplicitDomain.RowHeadersVisible = false;
             this.dataGridViewExcplicitDomain.RowHeadersWidth = 51;
-            this.dataGridViewExcplicitDomain.Size = new System.Drawing.Size(1061, 96);
+            this.dataGridViewExcplicitDomain.Size = new System.Drawing.Size(1061, 86);
             this.dataGridViewExcplicitDomain.TabIndex = 1;
             this.dataGridViewExcplicitDomain.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExcplicitDomain_CellEndEdit);
             // 
@@ -703,11 +751,28 @@ namespace Clicker
             this.domain.MinimumWidth = 6;
             this.domain.Name = "domain";
             // 
+            // tableLayoutPanel25
+            // 
+            this.tableLayoutPanel25.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel25.ColumnCount = 2;
+            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 470F));
+            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel25.Controls.Add(this.checkBoxExplicitDomain, 0, 0);
+            this.tableLayoutPanel25.Controls.Add(this.tableLayoutPanel26, 1, 0);
+            this.tableLayoutPanel25.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel25.Name = "tableLayoutPanel25";
+            this.tableLayoutPanel25.RowCount = 1;
+            this.tableLayoutPanel25.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel25.Size = new System.Drawing.Size(1061, 29);
+            this.tableLayoutPanel25.TabIndex = 2;
+            // 
             // checkBoxExplicitDomain
             // 
             this.checkBoxExplicitDomain.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.checkBoxExplicitDomain.AutoSize = true;
-            this.checkBoxExplicitDomain.Location = new System.Drawing.Point(2, 4);
+            this.checkBoxExplicitDomain.Location = new System.Drawing.Point(2, 6);
             this.checkBoxExplicitDomain.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxExplicitDomain.Name = "checkBoxExplicitDomain";
             this.checkBoxExplicitDomain.Size = new System.Drawing.Size(459, 17);
@@ -715,6 +780,112 @@ namespace Clicker
             this.checkBoxExplicitDomain.Text = "Зайти на страницу через 5 секунд выйти и продолжить поиск в этом задании кроме:";
             this.checkBoxExplicitDomain.UseVisualStyleBackColor = true;
             this.checkBoxExplicitDomain.CheckedChanged += new System.EventHandler(this.checkBoxExplicitDomain_CheckedChanged);
+            // 
+            // tableLayoutPanel26
+            // 
+            this.tableLayoutPanel26.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel26.ColumnCount = 5;
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel26.Controls.Add(this.numericUpDownMaxBypass, 4, 0);
+            this.tableLayoutPanel26.Controls.Add(this.checkBox1, 0, 0);
+            this.tableLayoutPanel26.Controls.Add(this.label19, 1, 0);
+            this.tableLayoutPanel26.Controls.Add(this.label20, 3, 0);
+            this.tableLayoutPanel26.Controls.Add(this.numericUpDownMinBypass, 2, 0);
+            this.tableLayoutPanel26.Location = new System.Drawing.Point(473, 3);
+            this.tableLayoutPanel26.Name = "tableLayoutPanel26";
+            this.tableLayoutPanel26.RowCount = 1;
+            this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel26.Size = new System.Drawing.Size(585, 23);
+            this.tableLayoutPanel26.TabIndex = 3;
+            // 
+            // numericUpDownMaxBypass
+            // 
+            this.numericUpDownMaxBypass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownMaxBypass.Enabled = false;
+            this.numericUpDownMaxBypass.Location = new System.Drawing.Point(471, 3);
+            this.numericUpDownMaxBypass.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxBypass.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxBypass.Name = "numericUpDownMaxBypass";
+            this.numericUpDownMaxBypass.Size = new System.Drawing.Size(111, 20);
+            this.numericUpDownMaxBypass.TabIndex = 4;
+            this.numericUpDownMaxBypass.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxBypass.ValueChanged += new System.EventHandler(this.numericUpDownMaxBypass_ValueChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(3, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(93, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Каждый сайт";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // label19
+            // 
+            this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(173, 5);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(58, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Минимум:";
+            // 
+            // label20
+            // 
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(401, 5);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(64, 13);
+            this.label20.TabIndex = 2;
+            this.label20.Text = "Максимум:";
+            // 
+            // numericUpDownMinBypass
+            // 
+            this.numericUpDownMinBypass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownMinBypass.Enabled = false;
+            this.numericUpDownMinBypass.Location = new System.Drawing.Point(237, 3);
+            this.numericUpDownMinBypass.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMinBypass.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMinBypass.Name = "numericUpDownMinBypass";
+            this.numericUpDownMinBypass.Size = new System.Drawing.Size(111, 20);
+            this.numericUpDownMinBypass.TabIndex = 3;
+            this.numericUpDownMinBypass.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMinBypass.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_3);
             // 
             // tableLayoutPanel12
             // 
@@ -752,11 +923,9 @@ namespace Clicker
             // 
             // maskedTextBox1
             // 
-            this.maskedTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.maskedTextBox1.Enabled = false;
-            this.maskedTextBox1.Location = new System.Drawing.Point(758, 3);
+            this.maskedTextBox1.Location = new System.Drawing.Point(758, 9);
             this.maskedTextBox1.Mask = "00000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(306, 20);
@@ -824,11 +993,9 @@ namespace Clicker
             // 
             // maskedTextBox4
             // 
-            this.maskedTextBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.maskedTextBox4.Enabled = false;
-            this.maskedTextBox4.Location = new System.Drawing.Point(969, 3);
+            this.maskedTextBox4.Location = new System.Drawing.Point(969, 9);
             this.maskedTextBox4.Mask = "00000";
             this.maskedTextBox4.Name = "maskedTextBox4";
             this.maskedTextBox4.Size = new System.Drawing.Size(95, 20);
@@ -864,7 +1031,7 @@ namespace Clicker
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77778F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77778F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
             this.tableLayoutPanel14.Controls.Add(this.textBoxProxyUsername, 5, 0);
             this.tableLayoutPanel14.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel14.Controls.Add(this.label7, 2, 0);
@@ -883,12 +1050,10 @@ namespace Clicker
             // 
             // textBoxProxyUsername
             // 
-            this.textBoxProxyUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProxyUsername.Location = new System.Drawing.Point(511, 3);
+            this.textBoxProxyUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxProxyUsername.Location = new System.Drawing.Point(510, 9);
             this.textBoxProxyUsername.Name = "textBoxProxyUsername";
-            this.textBoxProxyUsername.Size = new System.Drawing.Size(190, 20);
+            this.textBoxProxyUsername.Size = new System.Drawing.Size(189, 20);
             this.textBoxProxyUsername.TabIndex = 5;
             this.textBoxProxyUsername.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
@@ -906,7 +1071,7 @@ namespace Clicker
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(261, 13);
+            this.label7.Location = new System.Drawing.Point(260, 13);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 2;
@@ -916,7 +1081,7 @@ namespace Clicker
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(444, 13);
+            this.label8.Location = new System.Drawing.Point(443, 13);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(61, 13);
             this.label8.TabIndex = 4;
@@ -924,13 +1089,11 @@ namespace Clicker
             // 
             // textBoxProxyPort
             // 
-            this.textBoxProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProxyPort.Location = new System.Drawing.Point(772, 3);
+            this.textBoxProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxProxyPort.Location = new System.Drawing.Point(770, 9);
             this.textBoxProxyPort.Name = "textBoxProxyPort";
             this.textBoxProxyPort.PasswordChar = '●';
-            this.textBoxProxyPort.Size = new System.Drawing.Size(190, 20);
+            this.textBoxProxyPort.Size = new System.Drawing.Size(189, 20);
             this.textBoxProxyPort.TabIndex = 6;
             this.textBoxProxyPort.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
@@ -938,7 +1101,7 @@ namespace Clicker
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(710, 13);
+            this.label9.Location = new System.Drawing.Point(708, 13);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 7;
@@ -946,22 +1109,18 @@ namespace Clicker
             // 
             // maskedTextBoxProxyIp
             // 
-            this.maskedTextBoxProxyIp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxProxyIp.Location = new System.Drawing.Point(63, 3);
+            this.maskedTextBoxProxyIp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBoxProxyIp.Location = new System.Drawing.Point(63, 9);
             this.maskedTextBoxProxyIp.Name = "maskedTextBoxProxyIp";
-            this.maskedTextBoxProxyIp.Size = new System.Drawing.Size(190, 20);
+            this.maskedTextBoxProxyIp.Size = new System.Drawing.Size(189, 20);
             this.maskedTextBoxProxyIp.TabIndex = 8;
             this.maskedTextBoxProxyIp.Text = "127.0.0.1";
             this.maskedTextBoxProxyIp.TextChanged += new System.EventHandler(this.maskedTextBoxProxyIp_TextChanged);
             // 
             // numericUpDownProxyPort
             // 
-            this.numericUpDownProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownProxyPort.Location = new System.Drawing.Point(324, 3);
+            this.numericUpDownProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownProxyPort.Location = new System.Drawing.Point(323, 9);
             this.numericUpDownProxyPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -984,18 +1143,16 @@ namespace Clicker
             // 
             // comboBoxProxyType
             // 
-            this.comboBoxProxyType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxProxyType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxProxyType.FormattingEnabled = true;
             this.comboBoxProxyType.Items.AddRange(new object[] {
             "Без proxy",
             "http",
             "socks v4",
             "socks v5"});
-            this.comboBoxProxyType.Location = new System.Drawing.Point(968, 3);
+            this.comboBoxProxyType.Location = new System.Drawing.Point(965, 9);
             this.comboBoxProxyType.Name = "comboBoxProxyType";
-            this.comboBoxProxyType.Size = new System.Drawing.Size(96, 21);
+            this.comboBoxProxyType.Size = new System.Drawing.Size(99, 21);
             this.comboBoxProxyType.TabIndex = 10;
             this.comboBoxProxyType.SelectedIndexChanged += new System.EventHandler(this.comboBoxProxyType_SelectedIndexChanged);
             // 
@@ -1076,9 +1233,7 @@ namespace Clicker
             // 
             // numericUpDownTimeWaitRecaptcha
             // 
-            this.numericUpDownTimeWaitRecaptcha.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownTimeWaitRecaptcha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownTimeWaitRecaptcha.Location = new System.Drawing.Point(267, 3);
             this.numericUpDownTimeWaitRecaptcha.Maximum = new decimal(new int[] {
             500,
@@ -1166,9 +1321,7 @@ namespace Clicker
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker1.CustomFormat = "dd.MM.yy HH:mm";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(103, 3);
@@ -1378,7 +1531,7 @@ namespace Clicker
             this.tableLayoutPanel22.Name = "tableLayoutPanel22";
             this.tableLayoutPanel22.RowCount = 1;
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel22.Size = new System.Drawing.Size(281, 28);
             this.tableLayoutPanel22.TabIndex = 1;
             // 
@@ -1404,10 +1557,8 @@ namespace Clicker
             // 
             // numericUpDownWaitNextPageMin
             // 
-            this.numericUpDownWaitNextPageMin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownWaitNextPageMin.Location = new System.Drawing.Point(33, 3);
+            this.numericUpDownWaitNextPageMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownWaitNextPageMin.Location = new System.Drawing.Point(33, 4);
             this.numericUpDownWaitNextPageMin.Name = "numericUpDownWaitNextPageMin";
             this.numericUpDownWaitNextPageMin.Size = new System.Drawing.Size(104, 20);
             this.numericUpDownWaitNextPageMin.TabIndex = 2;
@@ -1420,10 +1571,8 @@ namespace Clicker
             // 
             // numericUpDownWaitNextPageMax
             // 
-            this.numericUpDownWaitNextPageMax.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownWaitNextPageMax.Location = new System.Drawing.Point(173, 3);
+            this.numericUpDownWaitNextPageMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownWaitNextPageMax.Location = new System.Drawing.Point(173, 4);
             this.numericUpDownWaitNextPageMax.Name = "numericUpDownWaitNextPageMax";
             this.numericUpDownWaitNextPageMax.Size = new System.Drawing.Size(105, 20);
             this.numericUpDownWaitNextPageMax.TabIndex = 3;
@@ -1462,7 +1611,7 @@ namespace Clicker
             this.tableLayoutPanel24.Name = "tableLayoutPanel24";
             this.tableLayoutPanel24.RowCount = 1;
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel24.Size = new System.Drawing.Size(494, 28);
             this.tableLayoutPanel24.TabIndex = 2;
             // 
@@ -1573,7 +1722,8 @@ namespace Clicker
             this.saveZadanToolStripMenuItem,
             this.выходToolStripMenuItem,
             this.SaveDefaultValuesToolStripMenuItem,
-            this.созданиеЗаданийToolStripMenuItem});
+            this.генерацияЗаданийToolStripMenuItem,
+            this.сбросСтатусаЗаданийToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -1670,6 +1820,44 @@ namespace Clicker
             this.SaveDefaultValuesToolStripMenuItem.Text = "Сохранить настройки";
             this.SaveDefaultValuesToolStripMenuItem.Click += new System.EventHandler(this.SaveDefaultValuesToolStripMenuItem_Click);
             // 
+            // генерацияЗаданийToolStripMenuItem
+            // 
+            this.генерацияЗаданийToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.созданиеЗаданийToolStripMenuItem1,
+            this.сгенерироватьВремяToolStripMenuItem,
+            this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem});
+            this.генерацияЗаданийToolStripMenuItem.Name = "генерацияЗаданийToolStripMenuItem";
+            this.генерацияЗаданийToolStripMenuItem.Size = new System.Drawing.Size(124, 20);
+            this.генерацияЗаданийToolStripMenuItem.Text = "Генерация заданий";
+            // 
+            // созданиеЗаданийToolStripMenuItem1
+            // 
+            this.созданиеЗаданийToolStripMenuItem1.Name = "созданиеЗаданийToolStripMenuItem1";
+            this.созданиеЗаданийToolStripMenuItem1.Size = new System.Drawing.Size(400, 22);
+            this.созданиеЗаданийToolStripMenuItem1.Text = "Создание заданий";
+            this.созданиеЗаданийToolStripMenuItem1.Click += new System.EventHandler(this.созданиеЗаданийToolStripMenuItem1_Click);
+            // 
+            // сгенерироватьВремяToolStripMenuItem
+            // 
+            this.сгенерироватьВремяToolStripMenuItem.Name = "сгенерироватьВремяToolStripMenuItem";
+            this.сгенерироватьВремяToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
+            this.сгенерироватьВремяToolStripMenuItem.Text = "Сгенерировать время";
+            this.сгенерироватьВремяToolStripMenuItem.Click += new System.EventHandler(this.сгенерироватьВремяToolStripMenuItem_Click);
+            // 
+            // продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem
+            // 
+            this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem.Name = "продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem";
+            this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
+            this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem.Text = "Продублировать текущие задания для других поисковиков";
+            this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem.Click += new System.EventHandler(this.продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem_Click);
+            // 
+            // сбросСтатусаЗаданийToolStripMenuItem1
+            // 
+            this.сбросСтатусаЗаданийToolStripMenuItem1.Name = "сбросСтатусаЗаданийToolStripMenuItem1";
+            this.сбросСтатусаЗаданийToolStripMenuItem1.Size = new System.Drawing.Size(156, 20);
+            this.сбросСтатусаЗаданийToolStripMenuItem1.Text = "Сбросить статус заданий";
+            this.сбросСтатусаЗаданийToolStripMenuItem1.Click += new System.EventHandler(this.сбросСтатусаЗаданийToolStripMenuItem1_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "*.txt|*.*";
@@ -1683,40 +1871,10 @@ namespace Clicker
             // 
             this.openFileDialogZadan.Filter = "Файл заданий|*.xml";
             // 
-            // dataGridViewSearchedSites
+            // openFileDialogCrx
             // 
-            this.dataGridViewSearchedSites.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSearchedSites.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.site});
-            this.dataGridViewSearchedSites.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewSearchedSites.Location = new System.Drawing.Point(596, 3);
-            this.dataGridViewSearchedSites.Name = "dataGridViewSearchedSites";
-            this.dataGridViewSearchedSites.Size = new System.Drawing.Size(468, 126);
-            this.dataGridViewSearchedSites.TabIndex = 2;
-            // 
-            // site
-            // 
-            this.site.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.site.HeaderText = "Наименование сайта";
-            this.site.Name = "site";
-            // 
-            // buttonLoadSearchedSite
-            // 
-            this.buttonLoadSearchedSite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadSearchedSite.Location = new System.Drawing.Point(3, 41);
-            this.buttonLoadSearchedSite.Name = "buttonLoadSearchedSite";
-            this.buttonLoadSearchedSite.Size = new System.Drawing.Size(114, 50);
-            this.buttonLoadSearchedSite.TabIndex = 3;
-            this.buttonLoadSearchedSite.Text = "Загрузить искомые сайты";
-            this.buttonLoadSearchedSite.UseVisualStyleBackColor = true;
-            this.buttonLoadSearchedSite.Click += new System.EventHandler(this.buttonLoadSearchedSite_Click);
-            // 
-            // созданиеЗаданийToolStripMenuItem
-            // 
-            this.созданиеЗаданийToolStripMenuItem.Name = "созданиеЗаданийToolStripMenuItem";
-            this.созданиеЗаданийToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
-            this.созданиеЗаданийToolStripMenuItem.Text = "Создание заданий";
-            this.созданиеЗаданийToolStripMenuItem.Click += new System.EventHandler(this.созданиеЗаданийToolStripMenuItem_Click);
+            this.openFileDialogCrx.Filter = "Extensions files|*.crx";
+            this.openFileDialogCrx.Multiselect = true;
             // 
             // Form1
             // 
@@ -1748,9 +1906,15 @@ namespace Clicker
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedSites)).EndInit();
             this.tableLayoutPanel9.ResumeLayout(false);
-            this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExcplicitDomain)).EndInit();
+            this.tableLayoutPanel25.ResumeLayout(false);
+            this.tableLayoutPanel25.PerformLayout();
+            this.tableLayoutPanel26.ResumeLayout(false);
+            this.tableLayoutPanel26.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBypass)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinBypass)).EndInit();
             this.tableLayoutPanel12.ResumeLayout(false);
             this.tableLayoutPanel12.PerformLayout();
             this.tableLayoutPanel13.ResumeLayout(false);
@@ -1786,7 +1950,6 @@ namespace Clicker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownResY)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedSites)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1907,7 +2070,19 @@ namespace Clicker
         private System.Windows.Forms.DataGridView dataGridViewSearchedSites;
         private System.Windows.Forms.DataGridViewTextBoxColumn site;
         private System.Windows.Forms.Button buttonLoadSearchedSite;
-        private System.Windows.Forms.ToolStripMenuItem созданиеЗаданийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem генерацияЗаданийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem созданиеЗаданийToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem сгенерироватьВремяToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem продублироватьТекущиеЗаданияДляДругихПоисковиковToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel25;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel26;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxBypass;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.NumericUpDown numericUpDownMinBypass;
+        private System.Windows.Forms.ToolStripMenuItem сбросСтатусаЗаданийToolStripMenuItem1;
+        private System.Windows.Forms.OpenFileDialog openFileDialogCrx;
     }
 }
 

@@ -54,5 +54,11 @@ namespace Clicker.src.Logger
                 //TODO Доделать запись 
             }
         }
+
+        public void AddText(string message)
+        {
+            if (textLogger != null)
+                textLogger.Add(message);
+        }
     }
 }

@@ -78,12 +78,29 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Forms\TimeGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\TimeGenerator.Designer.cs">
+      <DependentUpon>TimeGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Forms\TimeRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\TimeRequest.Designer.cs">
+      <DependentUpon>TimeRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Logger\ImageLogger.cs" />
     <Compile Include="src\Logger\LoggerWorker.cs" />
     <Compile Include="src\Logger\TextLogger.cs" />
     <Compile Include="src\Logger\VideoLogger.cs" />
     <Compile Include="src\Params\BrowserEnums.cs" />
     <Compile Include="src\Params\SeleniumParams.cs" />
+    <Compile Include="src\Params\SeleniumStatusWork.cs" />
+    <Compile Include="src\Searcher\DuckDuckGo.cs" />
+    <Compile Include="src\Searcher\Google.cs" />
+    <Compile Include="src\Searcher\ISearches.cs" />
+    <Compile Include="src\Searcher\Yandex.cs" />
     <Compile Include="src\Selenium\SeleniumWorker.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -97,6 +114,12 @@
     </Compile>
     <EmbeddedResource Include="src\Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\TimeGenerator.resx">
+      <DependentUpon>TimeGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\TimeRequest.resx">
+      <DependentUpon>TimeRequest.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />

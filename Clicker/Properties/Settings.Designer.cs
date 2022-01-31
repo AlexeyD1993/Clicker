@@ -73,30 +73,6 @@ namespace Clicker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Android")]
-        public string PlatformName {
-            get {
-                return ((string)(this["PlatformName"]));
-            }
-            set {
-                this["PlatformName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("78.0")]
-        public string BrowserVersion {
-            get {
-                return ((string)(this["BrowserVersion"]));
-            }
-            set {
-                this["BrowserVersion"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int timeToWaitNextPageMin {
             get {
@@ -297,6 +273,18 @@ namespace Clicker.Properties {
             }
             set {
                 this["extensionPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useAllSite {
+            get {
+                return ((bool)(this["useAllSite"]));
+            }
+            set {
+                this["useAllSite"] = value;
             }
         }
     }

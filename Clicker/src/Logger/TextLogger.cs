@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace Clicker.src.Logger
 {
-    class TextLogger
+    public class TextLogger
     {
         private string logFileName = "";
         public TextLogger(string logFileName)
         {
             this.logFileName = logFileName;
-            if (File.Exists(logFileName))
-                throw new Exception(string.Format("Ошибка создания текстового протокола. Протокол с именем {0} уже существует", logFileName));
-            else
-                File.CreateText(logFileName);
+            if (logFileName != "error.log")
+                if (File.Exists(logFileName))
+                    throw new Exception(string.Format("Ошибка создания текстового протокола. Протокол с именем {0} уже существует", logFileName));
+                else
+                    File.CreateText(logFileName);
         }
 
         public void Add(string message)

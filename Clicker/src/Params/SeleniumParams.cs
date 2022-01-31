@@ -18,7 +18,7 @@ namespace Clicker.src.Params
 
             clonedParams.paramName = paramName;
             clonedParams.finderUrl = this.finderUrl;
-            clonedParams.findUrl = this.findUrl;
+            clonedParams.findUrl = new List<string>(this.findUrl);
             clonedParams.request = this.request;
             clonedParams.browser = this.browser;
             clonedParams.explicitDomainList = new List<string>(this.explicitDomainList);
@@ -50,6 +50,10 @@ namespace Clicker.src.Params
             clonedParams.timeToWaitRecaptcha = this.timeToWaitRecaptcha;
             clonedParams.resX = this.resX;
             clonedParams.resY = this.resY;
+            clonedParams.isAll = this.isAll;
+            clonedParams.minBypass = this.minBypass;
+            clonedParams.maxByPass = this.maxByPass;
+            clonedParams.isEnd = SeleniumStatusWork.Status.NotRunning; //Склонированное задание должно отображаться новым заданием!
             return clonedParams;
         }
 
@@ -104,6 +108,12 @@ namespace Clicker.src.Params
         private int resX = Properties.Settings.Default.BrowserSizeX;
         private int resY = Properties.Settings.Default.BrowserSizeY;
 
+        private bool isAll = Properties.Settings.Default.useAllSite;
+        private int minBypass = 1;
+        private int maxByPass = 10;
+
+        private SeleniumStatusWork.Status isEnd = SeleniumStatusWork.Status.NotRunning;
+
         public BrowserEnums.Browsers Browser { get => browser; set => browser = value; }
         public string FinderUrl { get => finderUrl; set => finderUrl = value; }
         public ToSerializeIP ProxyIP { get => proxyIP; set => proxyIP = value; }
@@ -138,6 +148,10 @@ namespace Clicker.src.Params
         public string DuckduckGoEnd { get => duckduckGoEnd; set => duckduckGoEnd = value; }
         public int ResX { get => resX; set => resX = value; }
         public int ResY { get => resY; set => resY = value; }
+        public bool IsAll { get => isAll; set => isAll = value; }
+        public int MinBypass { get => minBypass; set => minBypass = value; }
+        public int MaxByPass { get => maxByPass; set => maxByPass = value; }
+        public SeleniumStatusWork.Status IsEnd { get => isEnd; set => isEnd = value; }
 
         public SeleniumParams()
         {
