@@ -30,62 +30,66 @@ namespace Clicker.src.Searches
         {
             try
             {
-                if (IsFoundPrivacyTools())
-                {
-                    webDriver.FindElement(By.XPath("/html/body/div[*]/div[*]/form/input[11]")).Click();
-                    log.AddText("Нажал кнопку принять условия гугла по первому XPATH");
-                }
-                else throw new Exception("");
-                //MessageBox.Show("Зашли через 1-ый раз", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                webDriver.FindElement(By.XPath("/html/body/div[*]/div[*]/form/input[11]")).Click();
+                log.AddText("Нажал кнопку принять условия гугла по первому XPATH");
             }
             catch
             {
                 try
                 {
-                    List<IWebElement> webElems = webDriver.FindElements(By.ClassName("basebutton")).ToList();
-                    if (webElems.Count == 2)
-                    {
-                        webElems.Last().Click();
-                        log.AddText("Нажал кнопку принять политику гугла по имени класса basebutton");
-                    }
-                    else
-                        throw new Exception("");
+                    webDriver.FindElement(By.TagName("input")).Click();
+                    log.AddText("Нажал кнопку принять условия гугла по tagname input");
+                    //MessageBox.Show("Зашли через 1-ый раз", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 }
                 catch
                 {
                     try
                     {
-                        webDriver.FindElement(By.Id("L2AGLb")).Click();
-                        log.AddText("Нажал кнопку принять условия гугла по ID L2AGLb");
-                        //MessageBox.Show("Зашли через ID", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        List<IWebElement> webElems = webDriver.FindElements(By.ClassName("basebutton")).ToList();
+                        if (webElems.Count == 2)
+                        {
+                            webElems.Last().Click();
+                            log.AddText("Нажал кнопку принять политику гугла по имени класса basebutton");
+                        }
+                        else
+                            throw new Exception("");
                     }
                     catch
                     {
                         try
                         {
-                            webDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[3]/span/div/div/div/div[3]/button[2]/div")).Click();
-                            log.AddText("Нажал кнопку принять условия гугла по второму XPATH");
-                            //MessageBox.Show("Зашли через XPATH", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                            webDriver.FindElement(By.Id("L2AGLb")).Click();
+                            log.AddText("Нажал кнопку принять условия гугла по ID L2AGLb");
+                            //MessageBox.Show("Зашли через ID", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                         }
                         catch
                         {
                             try
                             {
-                                webDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[3]/span/div/div/div/div[3]/button[2]")).Click();
-                                log.AddText("Нажал кнопку принять условия гугла по третьему XPATH");
-                                //MessageBox.Show("Зашли через XPATH 2", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                                webDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[3]/span/div/div/div/div[3]/button[2]/div")).Click();
+                                log.AddText("Нажал кнопку принять условия гугла по второму XPATH");
+                                //MessageBox.Show("Зашли через XPATH", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                             }
                             catch
                             {
                                 try
                                 {
-                                    webDriver.FindElement(By.XPath("/html/body/div[2]/div[3]/form/input[11]")).Click();
-                                    log.AddText("Нажал кнопку принять условия гугла по четвертому XPATH");
+                                    webDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[3]/span/div/div/div/div[3]/button[2]")).Click();
+                                    log.AddText("Нажал кнопку принять условия гугла по третьему XPATH");
+                                    //MessageBox.Show("Зашли через XPATH 2", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                                 }
                                 catch
                                 {
-                                    log.Add("Проблема с поиском элементов на странице принятия условий политики гугла", webDriver);
-                                    //MessageBox.Show("Не смог нажать на кнопку ", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                                    try
+                                    {
+                                        webDriver.FindElement(By.XPath("/html/body/div[2]/div[3]/form/input[11]")).Click();
+                                        log.AddText("Нажал кнопку принять условия гугла по четвертому XPATH");
+                                    }
+                                    catch
+                                    {
+                                        log.Add("Проблема с поиском элементов на странице принятия условий политики гугла", webDriver);
+                                        //MessageBox.Show("Не смог нажать на кнопку ", "Показать", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                                    }
                                 }
                             }
                         }
@@ -168,7 +172,7 @@ namespace Clicker.src.Searches
                             }
                             catch
                             {
-                                log.Add("Законен поиск по страницам поисковика. Искомых сайтов не найдено", webDriver);
+                                log.Add("Закончен поиск по страницам поисковика. Искомых сайтов не найдено", webDriver);
                                 return null;
                             }
                         }
@@ -188,6 +192,16 @@ namespace Clicker.src.Searches
             new Actions(webDriver).MoveToElement(webDriver.FindElement(By.Id("S3BnEe"))).Perform();
         }
 
+        public string GetPageLinkNameBy(IWebElement elem)
+        {
+            return GetWebElemBy(elem).GetAttribute("href");
+        }
+
+        public IWebElement GetWebElemBy(IWebElement elem)
+        {
+            return elem.FindElement(By.TagName("a"));
+        }
+
         public bool IsEightTermsExist()
         {
             return webDriver.PageSource.Trim().ToLower().Contains("<div class=\"x62GJd\">".Trim().ToLower());
@@ -196,17 +210,29 @@ namespace Clicker.src.Searches
         public bool IsFoundCookiePolicies()
         {
             if (webDriver.PageSource.Contains("productLogoContainer"))
+            {
+                log.Add("Нашли появившееся окно принятия условий гугла по productLogoContainer", webDriver);
                 return true;
+            }
             else
+            {
+                log.Add("Окно принятия условий гугла по productLogoContainer не найдено", webDriver);
                 return false;
+            }
         }
 
         public bool IsFoundPrivacyTools()
         {
             if (webDriver.PageSource.Contains("g.co/privacytools"))
+            {
+                log.Add("Нашли появившееся окно принятия условий гугла по g.co/privacytools", webDriver);
                 return true;
+            }
             else
+            {
+                log.Add("Окно принятия условий гугла по g.co/privacytools не найдено", webDriver);
                 return false;
+            }
         }
     }
 }

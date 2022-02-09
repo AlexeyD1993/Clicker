@@ -64,7 +64,7 @@ namespace Clicker.src.Searches
                         }
                         catch
                         {
-                            log.Add("Законен поиск по страницам поисковика. Искомых сайтов не найдено", webDriver);
+                            log.Add("Закончен поиск по страницам поисковика. Искомых сайтов не найдено", webDriver);
                             return null;
                         }
                     }
@@ -80,6 +80,16 @@ namespace Clicker.src.Searches
 
         public void FocusOnCoockie()
         {
+        }
+
+        public string GetPageLinkNameBy(IWebElement elem)
+        {
+            return GetWebElemBy(elem).GetAttribute("href");
+        }
+
+        public IWebElement GetWebElemBy(IWebElement elem)
+        {
+            return elem;// elem.FindElement(By.TagName("a"));
         }
 
         public bool IsEightTermsExist()

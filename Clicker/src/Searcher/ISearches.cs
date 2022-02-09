@@ -19,6 +19,9 @@ namespace Clicker.src.Searches
         void ClickAcceptTerms();
         bool IsEightTermsExist();
         void ClickAcceptEigthTerms();
+        string GetPageLinkNameBy(IWebElement elem);
+
+        IWebElement GetWebElemBy(IWebElement elem);
 
     }
 }

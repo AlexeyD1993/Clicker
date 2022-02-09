@@ -17,7 +17,9 @@ namespace Clicker.src.Logger
                 if (File.Exists(logFileName))
                     throw new Exception(string.Format("Ошибка создания текстового протокола. Протокол с именем {0} уже существует", logFileName));
                 else
-                    File.CreateText(logFileName);
+                {
+                    File.CreateText(logFileName).Close();
+                }
         }
 
         public void Add(string message)
@@ -29,6 +31,7 @@ namespace Clicker.src.Logger
             }
             catch
             {
+                File.AppendAllText("error.log", string.Format("{0}: {1}: \"{2}{3}\"", "Ошибка добавления текста", dateTime, message, Environment.NewLine));
             }
         }
     }

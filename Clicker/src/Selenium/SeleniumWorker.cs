@@ -34,6 +34,7 @@ namespace Clicker.src.Selenium
         private LoggerWorker log = null;
         private Random rnd = new Random();
         private List<string> loadedCrxFiles = new List<string>();
+        private string finder = null;
 
         private bool IsNetworkWork()
         {
@@ -48,7 +49,7 @@ namespace Clicker.src.Selenium
             {
                 using (var tcpClient = new TcpClient())
                 {
-                    tcpClient.Connect("google.ru", 443); // google
+                    tcpClient.Connect(finder.Replace("https:\\\\", "").Replace("http:\\\\", ""), 443); // google
                     isConnected = tcpClient.Connected;
                     tcpClient.Close();
                 }
@@ -89,7 +90,6 @@ namespace Clicker.src.Selenium
             log = new LoggerWorker(seleniumParams);
             try
             {
-                WaitForInternetConnection();
                 var chromeOptions = new ChromeOptions();
                 if (seleniumParams.ProxyIP.IPAddress != IPAddress.Loopback)
                 {
@@ -195,7 +195,7 @@ namespace Clicker.src.Selenium
                 webDriver = new ChromeDriver(Properties.Resources.ChromeDriver, chromeOptions, new TimeSpan(0, 0, seleniumParams.TimeToWaitSiteAndElement));
                 webDriver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, seleniumParams.TimeToWaitSiteAndElement);
                 webDriver.Manage().Timeouts().PageLoad = new TimeSpan(0, 0, seleniumParams.TimeWork);
-
+                log.Add("Вебдрайвер запущен", webDriver);
                 //Выставляем разрешение согласно заданию
                 webDriver.Manage().Window.Size = new System.Drawing.Size(seleniumParams.ResX, seleniumParams.ResY);
             }
@@ -218,7 +218,7 @@ namespace Clicker.src.Selenium
 
             try
             {
-                string finder = seleniumParams.FinderUrl;
+                finder = seleniumParams.FinderUrl;
 
                 if (seleniumParams.FinderUrl.Contains("google"))
                 {
@@ -240,11 +240,14 @@ namespace Clicker.src.Selenium
                     searcer = new DuckDuckGo(webDriver, log);
                 }
 
+                log.AddText("searcer initialized");
+                WaitForInternetConnection();
                 webDriver.Navigate().GoToUrl(finder);
-                
+                log.AddText("Перешли на страницу " + finder);
+
                 WaitRecapcha();
 
-                
+                WaitForTime(3000);
                 CookieReset();
                 log.Add("Браузер запущен", webDriver);
             }
@@ -614,7 +617,12 @@ namespace Clicker.src.Selenium
         {
             if (CookieExist())
             {
-                searcer.FocusOnCoockie();
+                try
+                {
+                    searcer.FocusOnCoockie();
+                }
+                catch
+                { }
                 ScrollDown();
                 ClickAcceptTerms();
             }
@@ -656,6 +664,76 @@ namespace Clicker.src.Selenium
             return result;
         }
 
+        private void GotoPageAndRunNext()
+        {
+            log.AddText("Зашли в задание \"Зайти на страницу и выйти в течении 5 секунд\"");
+            var siteList = FindElements();
+            log.AddText("Составил список результатов запроса");
+            int tmp;
+            if (!seleniumParams.IsAll)
+                tmp = rnd.Next(seleniumParams.MinBypass, seleniumParams.MaxByPass);
+            else
+                tmp = siteList.Count;
+            log.AddText(string.Format("Определились с количеством сайтов на которые будем заходить. siteCount={0}", tmp));
+            //Если нашли искомый сайт - то в любом случае заходим поочередно на каждую страницу и выходим через 5 секунд
+            if (FindRefOnWebPage())
+            {
+                log.AddText("Нашли искомый сайт на странице");
+                foreach (var elem in siteList)
+                {
+                    IWebElement link = elem.FindElement(By.TagName("a"));
+                    string site = link.GetAttribute("href");
+                    if (!IsHrefFile(site))
+                    {
+                        log.AddText("Выбрали " + site);
+                        if (!IsExcplicitSite(link))
+                        {
+                            log.AddText("Этот сайт не входит в сайт-исключение");
+                            if (!ContainsInFindedSiteList(link.Text.Trim().Split('?')[0]))
+                            {
+                                log.AddText("Это не искомый сайт");
+                                OpenPageInNewTab(link);
+                            }
+                            else
+                            {
+                                log.AddText("Это искомый сайт");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                log.AddText("На текущей странице не найден искомый сайт");
+                List<int> tmpList = new List<int>();
+                for (int i = 0; i < tmp; i++)
+                {
+                    int tmpListSize = tmpList.Count;
+                    while (tmpList.Count == tmpListSize)
+                    {
+                        tmpList.Add(rnd.Next(0, siteList.Count));
+                        tmpList = tmpList.Distinct().ToList();
+                    }
+                }
+                tmpList.Sort();
+                log.AddText("Сгенерировали список сайтов, на которые будем заходить на текущей странице");
+                for (int i = 0; i < tmpList.Count; i++)
+                {
+                    if (!IsExcplicitSite(siteList[tmpList[i]]))
+                    {
+                        log.AddText("Выбрали и зашли в него" + siteList[tmpList[i]].Text);
+                        //IWebElement link = siteList[tmpList[i]].FindElement(By.TagName("a"));
+                        string site = searcer.GetPageLinkNameBy(siteList[tmpList[i]]); //link.GetAttribute("href");
+                        if (!IsHrefFile(site))
+                            OpenPageInNewTab(searcer.GetWebElemBy(siteList[tmpList[i]]));
+                    }
+                    siteList = FindElements();
+                }
+            }
+
+        }
+
         private void OpenPageInNewTab(IWebElement elem)
         {
             Actions newTab = new Actions(webDriver);
@@ -692,6 +770,7 @@ namespace Clicker.src.Selenium
             {
                 try
                 {
+                    WaitForTime(3000);
                     CookieReset();
                 }
                 catch
@@ -707,72 +786,8 @@ namespace Clicker.src.Selenium
 
                     if (seleniumParams.GotoPageAndRunNext)
                     {
-                        log.AddText("Зашли в задание \"Зайти на страницу и выйти в течении 5 секунд\"");
-                        var siteList = FindElements();
-                        log.AddText("Составил список результатов запроса");
-                        int tmp;
-                        if (!seleniumParams.IsAll)
-                            tmp = rnd.Next(seleniumParams.MinBypass, seleniumParams.MaxByPass);
-                        else
-                            tmp = siteList.Count;
-                        log.AddText(string.Format("Определились с количеством сайтов на которые будем заходить. siteCount={0}", tmp));
-                        //Если нашли искомый сайт - то в любом случае заходим поочередно на каждую страницу и выходим через 5 секунд
-                        if (FindRefOnWebPage())
-                        {
-                            log.AddText("Нашли искомый сайт на странице");
-                            foreach (var elem in siteList)
-                            {
-                                IWebElement link = elem.FindElement(By.TagName("a"));
-                                string site = link.GetAttribute("href");
-                                if (!IsHrefFile(site))
-                                {
-                                    log.AddText("Выбрали " + site);
-                                    if (!IsExcplicitSite(link))
-                                    {
-                                        log.AddText("Этот сайт не входит в сайт-исключение");
-                                        if (!ContainsInFindedSiteList(link.Text.Trim().Split('?')[0]))
-                                        {
-                                            log.AddText("Это не искомый сайт");
-                                            OpenPageInNewTab(link);
-                                        }
-                                        else
-                                        {
-                                            log.AddText("Это искомый сайт");
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            log.AddText("На текущей странице не найден искомый сайт");
-                            List<int> tmpList = new List<int>();
-                            for (int i = 0; i < tmp; i++)
-                            {
-                                int tmpListSize = tmpList.Count;
-                                while (tmpList.Count == tmpListSize)
-                                {
-                                    tmpList.Add(rnd.Next(0, siteList.Count));
-                                    tmpList = tmpList.Distinct().ToList();
-                                }
-                            }
-                            tmpList.Sort();
-                            log.AddText("Сгенерировали список сайтов, на которые будем заходить на текущей странице");
-                            for (int i = 0; i < tmpList.Count; i++)
-                            {
-                                if (!IsExcplicitSite(siteList[tmpList[i]]))
-                                {
-                                    log.AddText("Выбрали и зашли в него" + siteList[tmpList[i]].Text);
-                                    IWebElement link = siteList[tmpList[i]].FindElement(By.TagName("a"));
-                                    string site = link.GetAttribute("href");
-                                    if (!IsHrefFile(site))
-                                        OpenPageInNewTab(link);
-                                }
-                                siteList = FindElements();
-                            }
-                        }
-
+                        log.AddText("Выбрано задание зайти на страницу и выйти в течении 5 секунд");
+                        GotoPageAndRunNext();
                     }
                     if (seleniumParams.GotoPageAndRun)
                     {

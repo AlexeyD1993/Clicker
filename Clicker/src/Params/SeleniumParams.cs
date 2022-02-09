@@ -109,8 +109,8 @@ namespace Clicker.src.Params
         private int resY = Properties.Settings.Default.BrowserSizeY;
 
         private bool isAll = Properties.Settings.Default.useAllSite;
-        private int minBypass = 1;
-        private int maxByPass = 10;
+        private int minBypass = Properties.Settings.Default.minByPass;
+        private int maxByPass = Properties.Settings.Default.maxByPass;
 
         private SeleniumStatusWork.Status isEnd = SeleniumStatusWork.Status.NotRunning;
 

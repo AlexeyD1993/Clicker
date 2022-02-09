@@ -70,6 +70,16 @@ namespace Clicker.src.Searches
         {
         }
 
+        public string GetPageLinkNameBy(IWebElement elem)
+        {
+            return GetWebElemBy(elem).GetAttribute("href");
+        }
+
+        public IWebElement GetWebElemBy(IWebElement elem)
+        {
+            return elem;
+        }
+
         public bool IsEightTermsExist()
         {
             return false;
